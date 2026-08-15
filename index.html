@@ -9,13 +9,10 @@
 :root{--primary:#1a3a5c;--primary-light:#2d5a8a;--accent:#c0392b;--success:#27ae60;--warning:#e67e22;--bg:#f0f2f5;--card:#fff;--text:#333;--text-light:#666;--border:#ddd;--radius:10px;--shadow:0 2px 8px rgba(0,0,0,.1)}
 body{font-family:'Microsoft YaHei','PingFang SC','Helvetica Neue',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
 .hidden{display:none!important}
-/* Header */
 .app-header{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;padding:18px 24px;box-shadow:0 2px 10px rgba(0,0,0,.2);position:sticky;top:0;z-index:100}
 .app-header h1{font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
 .app-header .subtitle{font-size:13px;opacity:.85;margin-top:2px}
-/* Container */
 .container{max-width:1100px;margin:0 auto;padding:20px}
-/* Home */
 .home-section{text-align:center;padding:30px 20px}
 .home-section .intro{background:var(--card);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);margin-bottom:24px;text-align:left}
 .home-section .intro h2{color:var(--primary);font-size:20px;margin-bottom:12px;text-align:center}
@@ -30,44 +27,46 @@ body{font-family:'Microsoft YaHei','PingFang SC','Helvetica Neue',Arial,sans-ser
 .home-btn .desc{font-size:12px;color:var(--text-light)}
 .home-btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff}
 .home-btn.primary .label,.home-btn.primary .desc{color:#fff}
-/* Quiz */
 .quiz-header-bar{background:var(--card);border-radius:var(--radius);padding:14px 20px;box-shadow:var(--shadow);display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px}
 .timer-display{font-size:24px;font-weight:700;font-family:'Courier New',monospace;color:var(--accent);display:flex;align-items:center;gap:6px}
 .timer-display.warning{animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 .quiz-info{font-size:13px;color:var(--text-light)}
 .quiz-info span{font-weight:600;color:var(--primary)}
-/* Tabs */
 .section-tabs{display:flex;gap:4px;margin-bottom:16px;background:var(--card);border-radius:var(--radius);padding:6px;box-shadow:var(--shadow)}
 .section-tab{flex:1;padding:10px 8px;border:none;background:transparent;border-radius:6px;cursor:pointer;font-size:14px;font-weight:600;color:var(--text-light);transition:all .2s;text-align:center}
 .section-tab.active{background:var(--primary);color:#fff}
 .section-tab .count{font-size:11px;display:block;opacity:.7;margin-top:2px}
-/* Questions */
 .question-list{display:flex;flex-direction:column;gap:12px}
 .q-card{background:var(--card);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);border-left:4px solid var(--border);transition:border-color .2s}
 .q-card.answered{border-left-color:var(--success)}
 .q-num{font-size:13px;font-weight:600;color:var(--primary);margin-bottom:6px}
 .q-category{display:inline-block;font-size:11px;background:#eef5fc;color:var(--primary);padding:2px 8px;border-radius:4px;margin-left:8px}
 .q-text{font-size:15px;margin-bottom:12px;line-height:1.7}
-.q-text .blank{display:inline-block;min-width:100px;border-bottom:2px solid var(--primary);margin:0 4px;text-align:center;font-weight:600;color:var(--accent)}
-/* Fill-blank input */
-.fb-input{width:100%;padding:10px 12px;border:2px solid var(--border);border-radius:6px;font-size:15px;font-family:inherit;transition:border-color .2s}
-.fb-input:focus{outline:none;border-color:var(--primary)}
-.fb-input.answered{background:#f8fdf9;border-color:var(--success)}
+/* Fill-blank clickable blank */
+.fb-blank{display:inline-block;min-width:140px;border-bottom:2px solid var(--primary);margin:0 4px;text-align:center;font-weight:600;color:var(--accent);cursor:pointer;padding:2px 8px;position:relative;transition:all .2s;border-radius:4px 4px 0 0}
+.fb-blank:hover{background:#f0f4ff}
+.fb-blank.filled{background:#e8f8ef;border-bottom-color:var(--success);color:var(--success)}
+.fb-blank.filled-wrong{background:#fdeaea;border-bottom-color:var(--accent);color:var(--accent)}
+/* Dropdown options */
+.fb-dropdown{position:absolute;top:100%;left:0;z-index:200;background:#fff;border:2px solid var(--primary);border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,.2);min-width:240px;max-width:400px;display:none}
+.fb-dropdown.show{display:block}
+.fb-option{padding:10px 14px;cursor:pointer;font-size:14px;border-bottom:1px solid #eee;transition:background .15s}
+.fb-option:last-child{border-bottom:none}
+.fb-option:hover{background:#eef5fc}
+.fb-option.selected{background:var(--primary);color:#fff;font-weight:600}
 /* True/False */
 .tf-buttons{display:flex;gap:12px}
 .tf-btn{flex:1;padding:12px;border:2px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-size:15px;font-weight:600;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
 .tf-btn:hover{border-color:var(--primary-light)}
 .tf-btn.selected.true{background:#e8f8ef;border-color:var(--success);color:var(--success)}
 .tf-btn.selected.false{background:#fdeaea;border-color:var(--accent);color:var(--accent)}
-/* Multiple choice */
 .mc-options{display:flex;flex-direction:column;gap:8px}
 .mc-option{display:flex;align-items:center;gap:10px;padding:10px 12px;border:2px solid var(--border);border-radius:6px;cursor:pointer;transition:all .15s}
 .mc-option:hover{border-color:var(--primary-light);background:#f7fafd}
 .mc-option.selected{border-color:var(--primary);background:#eef5fc}
 .mc-option .opt-label{font-weight:700;color:var(--primary);min-width:24px}
 .mc-option .opt-text{font-size:14px}
-/* Submit bar */
 .submit-bar{position:sticky;bottom:0;background:var(--card);border-radius:var(--radius);padding:14px 20px;box-shadow:0 -4px 12px rgba(0,0,0,.08);margin-top:16px;display:flex;justify-content:space-between;align-items:center;z-index:50}
 .submit-bar .progress-text{font-size:14px;color:var(--text-light)}
 .submit-bar .progress-text strong{color:var(--primary)}
@@ -79,9 +78,8 @@ body{font-family:'Microsoft YaHei','PingFang SC','Helvetica Neue',Arial,sans-ser
 .btn-danger{background:var(--accent);color:#fff}
 .btn-outline{background:transparent;border:2px solid var(--border);color:var(--text)}
 .btn-outline:hover{border-color:var(--primary);color:var(--primary)}
-/* Results */
 .result-header{text-align:center;padding:30px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px}
-.score-circle{width:140px;height:140px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:700;color:#fff;position:relative}
+.score-circle{width:140px;height:140px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:700;color:#fff}
 .score-circle.pass{background:linear-gradient(135deg,var(--success),#2ecc71)}
 .score-circle.fail{background:linear-gradient(135deg,var(--accent),#e74c3c)}
 .result-header h2{font-size:22px;color:var(--primary);margin-bottom:8px}
@@ -92,11 +90,9 @@ body{font-family:'Microsoft YaHei','PingFang SC','Helvetica Neue',Arial,sans-ser
 .summary-item .label{font-size:12px;color:var(--text-light)}
 .summary-item.correct .num{color:var(--success)}
 .summary-item.wrong .num{color:var(--accent)}
-/* Section header */
 .section-header{background:var(--card);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow);margin-bottom:16px}
 .section-header h3{font-size:17px;color:var(--primary);margin-bottom:4px}
 .section-header p{font-size:13px;color:var(--text-light)}
-/* Weak points */
 .weak-points{display:flex;flex-direction:column;gap:10px}
 .weak-item{background:var(--card);border-radius:8px;padding:14px 16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px}
 .weak-bar{flex:1;height:24px;background:#eee;border-radius:12px;overflow:hidden;position:relative}
@@ -104,7 +100,6 @@ body{font-family:'Microsoft YaHei','PingFang SC','Helvetica Neue',Arial,sans-ser
 .weak-bar-text{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#333}
 .weak-cat-name{min-width:140px;font-size:14px;font-weight:600}
 .weak-pct{min-width:60px;text-align:right;font-size:14px;font-weight:700}
-/* Wrong question review */
 .wrong-q-item{background:var(--card);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow);margin-bottom:12px;border-left:4px solid var(--accent)}
 .wrong-q-item .wq-type{font-size:12px;color:var(--accent);font-weight:600;margin-bottom:4px}
 .wrong-q-item .wq-text{font-size:14px;margin-bottom:8px}
@@ -112,7 +107,6 @@ body{font-family:'Microsoft YaHei','PingFang SC','Helvetica Neue',Arial,sans-ser
 .wrong-q-item .wq-your{background:#fdeaea;color:var(--accent)}
 .wrong-q-item .wq-correct{background:#e8f8ef;color:var(--success)}
 .wrong-q-item .wq-explain{font-size:13px;color:var(--text-light);margin-top:6px;font-style:italic}
-/* Stats */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px}
 .stat-card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);text-align:center}
 .stat-card .stat-value{font-size:32px;font-weight:700;color:var(--primary)}
@@ -124,82 +118,51 @@ body{font-family:'Microsoft YaHei','PingFang SC','Helvetica Neue',Arial,sans-ser
 .history-item .h-score{font-size:18px;font-weight:700}
 .history-item .h-score.pass{color:var(--success)}
 .history-item .h-score.fail{color:var(--accent)}
-/* Nav palette */
-.q-palette{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;padding:10px;background:var(--card);border-radius:8px;box-shadow:var(--shadow)}
-.q-palette-item{width:32px;height:32px;border-radius:6px;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;transition:all .15s;background:#fff}
-.q-palette-item.answered{background:var(--success);color:#fff;border-color:var(--success)}
-.q-palette-item.current{border-color:var(--primary);border-width:2px}
-/* Back button */
 .back-btn{margin-bottom:16px}
-/* Empty state */
 .empty{text-align:center;padding:40px;color:var(--text-light)}
 .empty .icon{font-size:48px;margin-bottom:12px}
-/* Responsive */
 @media(max-width:600px){
 .container{padding:10px}
 .result-summary{grid-template-columns:repeat(2,1fr)}
 .weak-cat-name{min-width:100px;font-size:13px}
 .app-header h1{font-size:18px}
 .q-card{padding:14px}
+.fb-blank{min-width:100px}
+.fb-dropdown{min-width:180px}
 }
 </style>
 </head>
 <body>
-
 <div class="app-header">
 <h1>🔒 保密知识答题库系统</h1>
 <div class="subtitle">武器装备科研生产单位保密知识测试 — 智能组卷 · 错题强化 · 薄弱分析</div>
 </div>
-
 <div class="container">
-<!-- HOME PAGE -->
 <div id="page-home">
 <div class="home-section">
 <div class="intro">
 <h2>📋 答题说明</h2>
-<p>本系统根据保密知识测试知识点自动组卷，覆盖总则、定密管理、国家秘密载体、密品管理、信息系统与信息设备、新闻宣传、涉外管理、涉密会议、保密要害部门部位、外场试验、协作配套、涉密人员等全部章节。</p>
+<p>本系统根据保密知识测试知识点自动组卷，覆盖总则至泄密案件报告与违法处置共13个章节、105个知识点。</p>
 <div class="rules">
 <strong>题型与分值：</strong>填空题 30 题（每题 1 分，共 30 分）｜判断题 30 题（每题 1 分，共 30 分）｜选择题 40 题（每题 1 分，共 40 分）｜满分 100 分<br>
+<strong>填空题方式：</strong>点击横线位置，弹出3个选项（1个正确项+2个干扰项），选择即可<br>
 <strong>答题时间：</strong>60 分钟，超时自动提交<br>
 <strong>智能强化：</strong>答错的题目自动进入错题库，下次组卷时错题出现概率更高<br>
 <strong>薄弱分析：</strong>系统自动统计各知识点正确率，帮你找到薄弱环节
 </div>
 </div>
 <div class="btn-grid">
-<button class="home-btn primary" onclick="startQuiz()">
-<span class="icon">📝</span>
-<span class="label">开始答题</span>
-<span class="desc">随机抽题 · 100分 · 60分钟</span>
-</button>
-<button class="home-btn" onclick="showPage('wrongbank')">
-<span class="icon">❌</span>
-<span class="label">错题本</span>
-<span class="desc" id="wrongCountDisplay">0 道错题</span>
-</button>
-<button class="home-btn" onclick="showPage('weak')">
-<span class="icon">📊</span>
-<span class="label">薄弱知识点</span>
-<span class="desc">分析薄弱环节</span>
-</button>
-<button class="home-btn" onclick="showPage('stats')">
-<span class="icon">📈</span>
-<span class="label">答题记录</span>
-<span class="desc">历史成绩统计</span>
-</button>
+<button class="home-btn primary" onclick="startQuiz()"><span class="icon">📝</span><span class="label">开始答题</span><span class="desc">随机抽题 · 100分 · 60分钟</span></button>
+<button class="home-btn" onclick="showPage('wrongbank')"><span class="icon">❌</span><span class="label">错题本</span><span class="desc" id="wrongCountDisplay">0 道错题</span></button>
+<button class="home-btn" onclick="showPage('weak')"><span class="icon">📊</span><span class="label">薄弱知识点</span><span class="desc">分析薄弱环节</span></button>
+<button class="home-btn" onclick="showPage('stats')"><span class="icon">📈</span><span class="label">答题记录</span><span class="desc">历史成绩统计</span></button>
 </div>
 </div>
 </div>
-
-<!-- QUIZ PAGE -->
 <div id="page-quiz" class="hidden">
 <div class="quiz-header-bar">
 <div class="timer-display" id="timerDisplay">⏱ 60:00</div>
-<div class="quiz-info">
-<span id="answeredCount">0</span>/<span id="totalCount">100</span> 已答 ｜
-填空 <span id="fbAnswered">0</span>/30 ｜
-判断 <span id="tfAnswered">0</span>/30 ｜
-选择 <span id="mcAnswered">0</span>/40
-</div>
+<div class="quiz-info"><span id="answeredCount">0</span>/<span id="totalCount">100</span> 已答 ｜ 填空 <span id="fbAnswered">0</span>/30 ｜ 判断 <span id="tfAnswered">0</span>/30 ｜ 选择 <span id="mcAnswered">0</span>/40</div>
 </div>
 <div class="section-tabs">
 <button class="section-tab active" onclick="switchTab('fillBlank')">填空题<span class="count">30题 × 1分</span></button>
@@ -212,8 +175,6 @@ body{font-family:'Microsoft YaHei','PingFang SC','Helvetica Neue',Arial,sans-ser
 <button class="btn btn-danger" onclick="submitQuiz()">交卷</button>
 </div>
 </div>
-
-<!-- RESULTS PAGE -->
 <div id="page-result" class="hidden">
 <div class="result-header">
 <div class="score-circle" id="scoreCircle">--</div>
@@ -227,31 +188,21 @@ body{font-family:'Microsoft YaHei','PingFang SC','Helvetica Neue',Arial,sans-ser
 </div>
 </div>
 <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
-<button class="btn btn-outline back-btn" onclick="showPage('home')">返回首页</button>
+<button class="btn btn-outline" onclick="showPage('home')">返回首页</button>
 <button class="btn btn-primary" onclick="showPage('resultWrong')">查看错题</button>
 <button class="btn btn-success" onclick="startQuiz()">再考一次</button>
 </div>
 </div>
-
-<!-- RESULT WRONG QUESTIONS -->
 <div id="page-resultWrong" class="hidden">
-<div class="section-header">
-<h3>❌ 本次错题回顾</h3>
-<p id="resultWrongCount"></p>
-</div>
+<div class="section-header"><h3>❌ 本次错题回顾</h3><p id="resultWrongCount"></p></div>
 <div class="back-btn"><button class="btn btn-outline" onclick="showPage('result')">返回成绩</button></div>
 <div id="resultWrongList"></div>
 </div>
-
-<!-- WRONG BANK PAGE -->
 <div id="page-wrongbank" class="hidden">
-<div class="section-header">
-<h3>📚 错题库</h3>
-<p id="wrongBankDesc">所有答错过的题目汇总，可逐题查看正确答案与解析</p>
-</div>
+<div class="section-header"><h3>📚 错题库</h3><p id="wrongBankDesc">所有答错过的题目汇总</p></div>
 <div class="back-btn"><button class="btn btn-outline" onclick="showPage('home')">返回首页</button></div>
 <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-<button class="btn btn-outline" onclick="filterWrongBank('all')" id="wbAll">全部错题</button>
+<button class="btn btn-outline" onclick="filterWrongBank('all')">全部错题</button>
 <button class="btn btn-outline" onclick="filterWrongBank('fillBlank')">填空题</button>
 <button class="btn btn-outline" onclick="filterWrongBank('trueFalse')">判断题</button>
 <button class="btn btn-outline" onclick="filterWrongBank('choice')">选择题</button>
@@ -259,23 +210,13 @@ body{font-family:'Microsoft YaHei','PingFang SC','Helvetica Neue',Arial,sans-ser
 </div>
 <div id="wrongBankList"></div>
 </div>
-
-<!-- WEAK POINTS PAGE -->
 <div id="page-weak" class="hidden">
-<div class="section-header">
-<h3>📊 薄弱知识点分析</h3>
-<p>根据历次答题记录统计各知识点正确率，正确率越低说明越薄弱</p>
-</div>
+<div class="section-header"><h3>📊 薄弱知识点分析</h3><p>根据历次答题记录统计各知识点正确率</p></div>
 <div class="back-btn"><button class="btn btn-outline" onclick="showPage('home')">返回首页</button></div>
 <div id="weakPointsContainer"></div>
 </div>
-
-<!-- STATS PAGE -->
 <div id="page-stats" class="hidden">
-<div class="section-header">
-<h3>📈 答题记录与统计</h3>
-<p>历史答题成绩与整体掌握情况</p>
-</div>
+<div class="section-header"><h3>📈 答题记录与统计</h3><p>历史答题成绩与整体掌握情况</p></div>
 <div class="back-btn"><button class="btn btn-outline" onclick="showPage('home')">返回首页</button></div>
 <div class="stats-grid">
 <div class="stat-card"><div class="stat-value" id="sTotalExams">0</div><div class="stat-label">累计考试次数</div></div>
@@ -283,856 +224,526 @@ body{font-family:'Microsoft YaHei','PingFang SC','Helvetica Neue',Arial,sans-ser
 <div class="stat-card"><div class="stat-value" id="sBestScore">--</div><div class="stat-label">最高分</div></div>
 <div class="stat-card"><div class="stat-value" id="sTotalWrong">0</div><div class="stat-label">错题库题数</div></div>
 </div>
-<div class="history-list">
-<h3 style="margin-bottom:12px;color:var(--primary)">历次成绩</h3>
-<div id="historyList"></div>
+<div class="history-list"><h3 style="margin-bottom:12px;color:var(--primary)">历次成绩</h3><div id="historyList"></div></div>
 </div>
 </div>
-
-</div>
-
 <script>
-// ===================== QUESTION BANK =====================
-const CATEGORIES = [
-'总则','定密管理','国家秘密载体','密品管理','信息系统与信息设备',
-'新闻宣传与信息发布','涉外管理','涉密会议管理','保密要害部门部位',
-'外场试验管理','协作配套管理','涉密人员管理','泄密案件报告与违法处置'
+// ===================== CATEGORIES =====================
+const CATEGORIES=['总则','定密管理','国家秘密载体','密品管理','信息系统与信息设备','新闻宣传与信息发布','涉外管理','涉密会议管理','保密要害部门部位','外场试验管理','协作配套管理','涉密人员管理','泄密案件报告与违法处置'];
+
+// ===================== FILL-IN-THE-BLANK (only items with underlines in original photos) =====================
+// Each has: id, cat, q (with ____), opts[3], a(correct index), exp
+const FILL_BLANK=[
+{id:'fb1',cat:'总则',q:'国家秘密是____，依照法定程序确定，在一定时间内只限一定范围的人员知悉的事项。',opts:['关系国家安全和利益','关系单位发展和利益','关系个人发展和利益'],a:0,exp:'《保守国家秘密法》第二条：国家秘密是关系国家安全和利益的事项。'},
+{id:'fb2',cat:'定密管理',q:'定密应当坚持____原则。',opts:['最小化、精准化','最大化、规范化','最小化、快速化'],a:0,exp:'定密坚持最小化、精准化原则。'},
+{id:'fb3',cat:'定密管理',q:'单位定密责任人和承办人应当接受定密培训，熟悉定密职责和有关保密事项范围，掌握____。',opts:['定密程序和方法','保密技术和手段','泄密案例和教训'],a:0,exp:'掌握定密程序和方法。'},
+{id:'fb4',cat:'定密管理',q:'单位确定国家秘密，应当作出____，注明承办人、定密责任人和定密依据。',opts:['书面记录','口头报告','电子记录'],a:0,exp:'应作出书面记录。'},
+{id:'fb5',cat:'定密管理',q:'单位确定国家秘密，应当作出书面记录，注明承办人、定密责任人和____。',opts:['定密依据','保密期限','知悉范围'],a:0,exp:'应注明定密依据。'},
+{id:'fb6',cat:'定密管理',q:'确定国家秘密的基本程序中，提出拟定密级、保密期限和知悉范围的意见，提交____审核后由单位定密责任人审批。',opts:['所在部门负责人','上级机关负责人','保密委员会'],a:0,exp:'提交所在部门负责人审核。'},
+{id:'fb7',cat:'定密管理',q:'单位对所产生的国家秘密事项，应当按照保密事项范围的规定确定密级，同时确定____。',opts:['保密期限和知悉范围','文件编号和份数','发放范围和数量'],a:0,exp:'同时确定保密期限和知悉范围。'},
+{id:'fb8',cat:'定密管理',q:'单位对具备国家秘密本质属性，可以与非国家秘密明确区分的关键内容，可以____。',opts:['标注密点','公开披露','自行销毁'],a:0,exp:'可以标注密点。'},
+{id:'fb9',cat:'定密管理',q:'国家秘密的保密期限，除另有规定外，绝密级不超过____。',opts:['30年','20年','10年'],a:0,exp:'绝密级不超过30年。'},
+{id:'fb10',cat:'定密管理',q:'国家秘密的保密期限，除另有规定外，机密级不超过____。',opts:['20年','30年','10年'],a:0,exp:'机密级不超过20年。'},
+{id:'fb11',cat:'定密管理',q:'国家秘密的保密期限，除另有规定外，秘密级不超过____。',opts:['10年','20年','30年'],a:0,exp:'秘密级不超过10年。'},
+{id:'fb12',cat:'定密管理',q:'除保密事项范围有明确规定外，国家秘密的保密期限不得确定为____。',opts:['长期','短期','永久'],a:0,exp:'不得确定为长期。'},
+{id:'fb13',cat:'定密管理',q:'单位对所产生的国家秘密，应当按照保密事项范围的规定确定具体的保密期限或者____。',opts:['解密条件','公开条件','变更条件'],a:0,exp:'应确定保密期限或解密条件。'},
+{id:'fb14',cat:'定密管理',q:'国家秘密的知悉范围，应当根据工作需要限定在____。',opts:['最小范围','最大范围','固定范围'],a:0,exp:'应限定在最小范围。'},
+{id:'fb15',cat:'定密管理',q:'国家秘密的知悉范围能够限定到____的，限定到____。',opts:['具体人员','整个部门','所有员工'],a:0,exp:'能限定到具体人员的，限定到具体人员。'},
+{id:'fb16',cat:'定密管理',q:'国家秘密的密级、保密期限和知悉范围，应当根据情况变化____。',opts:['及时变更','保持不变','立即公开'],a:0,exp:'应及时变更。'},
+{id:'fb17',cat:'定密管理',q:'国家秘密的密级、保密期限和知悉范围变更的，应当____知悉范围内的机关、单位或者人员。',opts:['及时书面通知','口头告知','电话通知'],a:0,exp:'应及时书面通知。'},
+{id:'fb18',cat:'定密管理',q:'派生定密是指机关、单位对____已定密事项所产生的国家秘密，依法确定、变更和解除的活动。',opts:['执行或者办理','自行创建或者发现','转发或者复制'],a:0,exp:'派生定密是对执行或办理已定密事项产生的国家秘密进行定密。'},
+{id:'fb19',cat:'国家秘密载体',q:'国家秘密载体是指以____等方式记载国家秘密信息的各类物品。',opts:['文字、数据、符号、图形、图像、视频、音频','纸张、光盘、U盘、硬盘','口头、书面、电子'],a:0,exp:'载体包括文字、数据、符号、图形、图像、视频、音频等方式记载的物品。'},
+{id:'fb20',cat:'国家秘密载体',q:'国家秘密标志形式为____、"密级★解密时间"或者"密级★解密条件"。',opts:['密级★保密期限','密级★文件编号','密级★密品代码'],a:0,exp:'标志形式为"密级★保密期限"等。'},
+{id:'fb21',cat:'国家秘密载体',q:'制作国家秘密载体应当按照有关规定作出____，标明密级和保密期限。',opts:['国家秘密标志','公开标志','内部标志'],a:0,exp:'应作出国家秘密标志。'},
+{id:'fb22',cat:'国家秘密载体',q:'收发国家秘密载体，应当履行____等手续。',opts:['清点、编号、登记、签收','拍照、复印、存档、上报','签收、分发、传阅、回收'],a:0,exp:'应履行清点、编号、登记、签收手续。'},
+{id:'fb23',cat:'国家秘密载体',q:'传递国家秘密载体，应当通过____或者其他符合国家保密规定的方式进行。',opts:['机要交通、机要通信','普通邮政、快递','电子邮件、微信'],a:0,exp:'应通过机要交通、机要通信等方式。'},
+{id:'fb24',cat:'国家秘密载体',q:'阅读和使用国家秘密载体应当办理____，管理人员要随时掌握国家秘密载体的去向。',opts:['登记、签收手续','借阅、归还手续','审批、备案手续'],a:0,exp:'应办理登记、签收手续。'},
+{id:'fb25',cat:'密品管理',q:'密品禁止通过____传递。',opts:['普通邮政、快递等无保密措施的渠道','机要交通、机要通信','专人押运'],a:0,exp:'密品禁止通过无保密措施渠道传递。'},
+{id:'fb26',cat:'密品管理',q:'密品销毁应当履行____，选择有保密保障的部门、单位、场所进行。',opts:['审批程序','公开招标程序','竞价拍卖程序'],a:0,exp:'密品销毁应履行审批程序。'},
+{id:'fb27',cat:'信息系统与信息设备',q:'涉密信息设备原则上根据存储、处理、传输信息的____，按照程序确定涉密等级。',opts:['最高密级','最低密级','平均密级'],a:0,exp:'按最高密级确定涉密等级。'},
+{id:'fb28',cat:'信息系统与信息设备',q:'信息设备应当具有标识，涉密的应当____。',opts:['标明密级','隐藏密级','取消密级'],a:0,exp:'涉密信息设备应标明密级。'},
+{id:'fb29',cat:'信息系统与信息设备',q:'涉密信息设备外出前应当履行____，借出前和归还后应当进行保密检查。',opts:['审批程序','登记程序','备案程序'],a:0,exp:'外出前应履行审批程序。'},
+{id:'fb30',cat:'信息系统与信息设备',q:'服务器、计算机____，安装或者拆卸软硬件应当记录，涉密的还应当按照程序审批。',opts:['更换硬盘、重装操作系统','接入互联网、安装软件','清理文件、删除数据'],a:0,exp:'更换硬盘、重装操作系统应记录并审批。'},
+{id:'fb31',cat:'新闻宣传与信息发布',q:'涉及新闻宣传、信息发布与提供的各类稿件应当在具备保密条件的环境下起草，不得在____存储、处理、传输未经审查的信息。',opts:['互联网平台','保密电脑','涉密网络'],a:0,exp:'不得在互联网平台存储处理未经审查的信息。'},
+{id:'fb32',cat:'保密要害部门部位',q:'保密要害部门是指涉及____国家秘密的内设机构。',opts:['绝密级或者较多机密级、秘密级','所有密级的','仅秘密级的'],a:0,exp:'保密要害部门涉及绝密级或较多机密级、秘密级国家秘密。'},
+{id:'fb33',cat:'保密要害部门部位',q:'保密要害部位是指____。',opts:['集中制作、存放、保管国家秘密载体、密品的专门场所','员工日常办公的场所','对外接待来访的场所'],a:0,exp:'保密要害部位是集中制作存放保管载体和密品的专门场所。'},
+{id:'fb34',cat:'保密要害部门部位',q:'非授权人员进入保密要害部门部位应当按照程序____，并采取监督管理措施。',opts:['审批登记','自由出入','口头请示'],a:0,exp:'应按程序审批登记。'},
+{id:'fb35',cat:'保密要害部门部位',q:'离开保密要害部门部位时，应当将____存入国家秘密载体保密柜、保险柜并落锁。',opts:['所有涉密文件、涉密光盘、涉密优盘等涉密载体','个人物品和私人物品','公开文件和宣传材料'],a:0,exp:'应将所有涉密载体存入保密柜。'},
+{id:'fb36',cat:'保密要害部门部位',q:'严禁将____带入保密要害部门部位。',opts:['普通手机、平板电脑、智能手表、智能手环、智能眼镜等便携电子设备','纸质笔记本和签字笔','工作证件和门禁卡'],a:0,exp:'严禁带入便携电子设备。'},
+{id:'fb37',cat:'协作配套管理',q:'与协作配套单位签订的涉密项目合同中，应当明确____。',opts:['合同文本密级、项目密级','合同金额、付款方式','交货期限、质量标准'],a:0,exp:'应明确合同文本密级、项目密级。'},
+{id:'fb38',cat:'涉密人员管理',q:'应当对在岗涉密人员进行保密教育培训，每人每年度不少于____。',opts:['16学时','8学时','32学时'],a:0,exp:'每人每年度不少于16学时。'},
+{id:'fb39',cat:'涉密人员管理',q:'涉密人员离岗前应当签订保密____，清退保管和使用的国家秘密载体。',opts:['承诺书','协议书','保证书'],a:0,exp:'离岗前应签订保密承诺书。'},
+{id:'fb40',cat:'涉密人员管理',q:'核心涉密人员脱密期不少于____。',opts:['3年','1年','2年'],a:0,exp:'核心涉密人员脱密期不少于3年。'},
+{id:'fb41',cat:'涉密人员管理',q:'重要涉密人员脱密期不少于____。',opts:['2年','1年','3年'],a:0,exp:'重要涉密人员脱密期不少于2年。'},
+{id:'fb42',cat:'涉密人员管理',q:'一般涉密人员脱密期不少于____。',opts:['1年','2年','3年'],a:0,exp:'一般涉密人员脱密期不少于1年。'},
 ];
 
-// --- FILL-IN-THE-BLANK QUESTIONS ---
-const FILL_BLANK = [
-{id:'fb1',cat:'总则',q:'国家秘密是关系国家安全和利益，依照法定程序确定，在一定时间内只限____的人员知悉的事项。',a:['一定范围'],exp:'《保守国家秘密法》第二条：国家秘密是关系国家安全和利益，依照法定程序确定，在一定时间内只限一定范围的人员知悉的事项。'},
-{id:'fb2',cat:'总则',q:'国家秘密的密级分为____、____、____三级。',a:['绝密','机密','秘密'],exp:'国家秘密的密级分为绝密、机密、秘密三级。'},
-{id:'fb3',cat:'总则',q:'绝密级国家秘密是最重要的国家秘密，泄露会使国家安全和利益遭受____损害。',a:['特别严重的'],exp:'绝密级：最重要的国家秘密，泄露会使国家安全和利益遭受特别严重的损害。'},
-{id:'fb4',cat:'总则',q:'机密级国家秘密是重要的国家秘密，泄露会使国家安全和利益遭受____损害。',a:['严重的'],exp:'机密级：重要的国家秘密，泄露会使国家安全和利益遭受严重的损害。'},
-{id:'fb5',cat:'总则',q:'秘密级国家秘密是一般的国家秘密，泄露会使国家安全和利益遭受____。',a:['损害'],exp:'秘密级：一般的国家秘密，泄露会使国家安全和利益遭受损害。'},
-{id:'fb6',cat:'定密管理',q:'定密是指单位依法确定、变更和____国家秘密的活动。',a:['解除'],exp:'定密包括确定、变更和解除国家秘密的活动，分为原始定密和派生定密。'},
-{id:'fb7',cat:'定密管理',q:'定密包括原始定密和____定密。',a:['派生'],exp:'定密分为原始定密和派生定密两种。'},
-{id:'fb8',cat:'定密管理',q:'定密应当坚持____、____原则。',a:['最小化','精准化'],exp:'定密应当坚持最小化、精准化原则。'},
-{id:'fb9',cat:'定密管理',q:'单位定密责任人和承办人应当接受定密培训，熟悉定密职责和有关保密事项____，掌握定密程序和方法。',a:['范围'],exp:'定密责任人和承办人应熟悉保密事项范围。'},
-{id:'fb10',cat:'定密管理',q:'单位确定国家秘密，应当作出书面记录，注明承办人、定密责任人和____。',a:['定密依据'],exp:'确定国家秘密应注明承办人、定密责任人和定密依据。'},
-{id:'fb11',cat:'定密管理',q:'确定国家秘密的基本程序是：承办人对照本单位制定的国家秘密事项一览表，____时确定保密期限和知悉范围。',a:['同时'],exp:'承办人对照事项一览表，同时确定保密期限和知悉范围。'},
-{id:'fb12',cat:'定密管理',q:'国家秘密的保密期限，除另有规定外，绝密级不超过____年。',a:['30'],exp:'绝密级不超过30年，机密级不超过20年，秘密级不超过10年。'},
-{id:'fb13',cat:'定密管理',q:'国家秘密的保密期限，除另有规定外，机密级不超过____年。',a:['20'],exp:'绝密级不超过30年，机密级不超过20年，秘密级不超过10年。'},
-{id:'fb14',cat:'定密管理',q:'国家秘密的保密期限，除另有规定外，秘密级不超过____年。',a:['10'],exp:'绝密级不超过30年，机密级不超过20年，秘密级不超过10年。'},
-{id:'fb15',cat:'定密管理',q:'除保密事项范围有明确规定外，国家秘密的保密期限不得确定为____。',a:['长期'],exp:'保密期限不得确定为长期。'},
-{id:'fb16',cat:'定密管理',q:'工作过程中确定需要保密的事项，根据工作需要决定公开的，正式公布时即视为____。',a:['解密'],exp:'正式公布时即视为解密。'},
-{id:'fb17',cat:'定密管理',q:'国家秘密的知悉范围，应当根据工作需要限定在____。',a:['最小范围'],exp:'知悉范围应当限定在最小范围。'},
-{id:'fb18',cat:'定密管理',q:'国家秘密的密级、保密期限和知悉范围的变更，由原定密机关、单位决定，也可以由其____决定。',a:['上级机关'],exp:'变更由原定密机关单位或其上级机关决定。'},
-{id:'fb19',cat:'国家秘密载体',q:'国家秘密标志形式为"密级★____"、"密级★解密时间"或者"密级★解密条件"。',a:['保密期限'],exp:'国家秘密标志形式为"密级★保密期限"等。'},
-{id:'fb20',cat:'国家秘密载体',q:'不属于国家秘密的，____作出国家秘密标志。',a:['不得'],exp:'不属于国家秘密的，不得作出国家秘密标志。'},
-{id:'fb21',cat:'国家秘密载体',q:'国家秘密载体应当相对集中管理，建立____，做到账物相符。',a:['台账'],exp:'应当建立台账，做到账物相符。'},
-{id:'fb22',cat:'国家秘密载体',q:'收发国家秘密载体，应当履行清点、编号、登记、____等手续。',a:['签收'],exp:'收发载体应履行清点、编号、登记、签收手续。'},
-{id:'fb23',cat:'国家秘密载体',q:'传递国家秘密载体，应当通过____、机要通信或者其他符合国家保密规定的方式进行。',a:['机要交通'],exp:'应通过机要交通、机要通信等方式传递。'},
-{id:'fb24',cat:'国家秘密载体',q:'传递国家秘密载体，不得通过普通邮政或者____等其他无保密措施的渠道传递。',a:['快递'],exp:'不得通过普通邮政或快递等无保密措施渠道传递。'},
-{id:'fb25',cat:'国家秘密载体',q:'收发绝密级国家秘密载体，应当指定____负责。',a:['专人'],exp:'收发绝密级载体应指定专人负责。'},
-{id:'fb26',cat:'国家秘密载体',q:'传递、携带绝密级国家秘密载体，应当____以上同行。',a:['两人'],exp:'传递携带绝密级载体应两人以上同行。'},
-{id:'fb27',cat:'国家秘密载体',q:'阅读和使用国家秘密载体应当办理登记、____手续。',a:['签收'],exp:'阅读使用载体应办理登记、签收手续。'},
-{id:'fb28',cat:'国家秘密载体',q:'工作人员离开办公场所，应当将国家秘密载体存放在____里。',a:['保密设备'],exp:'离开办公场所应将载体存入保密设备。'},
-{id:'fb29',cat:'国家秘密载体',q:'销毁国家秘密载体，应当符合国家保密规定和标准，确保销毁的国家秘密信息____。',a:['无法还原'],exp:'销毁载体应确保信息无法还原。'},
-{id:'fb30',cat:'国家秘密载体',q:'制作国家秘密载体过程中形成的不需要归档的材料，应当及时____。',a:['销毁'],exp:'不需归档的材料应及时销毁。'},
-{id:'fb31',cat:'密品管理',q:'密品是指直接涉及国家秘密的设备、____等。',a:['产品'],exp:'密品是直接涉及国家秘密的设备、产品等。'},
-{id:'fb32',cat:'密品管理',q:'密品应当建立____，做到账物相符。',a:['台账'],exp:'密品应建立台账管理。'},
-{id:'fb33',cat:'密品管理',q:'携带密品外出应当有____以上同行，并采取保护措施。',a:['两人'],exp:'携带密品外出应两人以上同行。'},
-{id:'fb34',cat:'信息系统与信息设备',q:'涉密信息系统应当按照处理国家秘密信息的____密级确定密级。',a:['最高'],exp:'按处理信息的最高密级确定系统密级。'},
-{id:'fb35',cat:'涉密会议管理',q:'涉密会议场所禁止带入智能便携式____设备及手机等无线设备或装置。',a:['穿戴'],exp:'禁止带入智能便携式穿戴设备及手机等。'},
-{id:'fb36',cat:'保密要害部门部位',q:'保密要害部门是指涉及绝密级或者较多____、秘密级国家秘密的内设机构。',a:['机密级'],exp:'保密要害部门涉及绝密级或较多机密级、秘密级国家秘密。'},
-{id:'fb37',cat:'保密要害部门部位',q:'保密要害部位是指集中制作、存放、保管国家秘密载体、____的专门场所。',a:['密品'],exp:'保密要害部位是集中制作存放保管载体和密品的专门场所。'},
-{id:'fb38',cat:'涉密人员管理',q:'应当对在岗涉密人员进行保密教育培训，每人每年度不少于____学时。',a:['16'],exp:'每人每年度保密教育培训不少于16学时。'},
-{id:'fb39',cat:'涉密人员管理',q:'涉密人员出境应当履行____程序，出境前应当接受保密教育。',a:['审批'],exp:'出境应履行审批程序。'},
-{id:'fb40',cat:'涉密人员管理',q:'涉密人员应当签订____，严格遵守国家保密规定。',a:['保密承诺书'],exp:'涉密人员应签订保密承诺书。'},
-{id:'fb41',cat:'涉密人员管理',q:'涉密人员离岗前应当按照规定经过审批，接受保密提醒谈话，签订保密____，清退保管和使用的国家秘密载体。',a:['承诺书'],exp:'离岗前应签订保密承诺书，清退所有涉密载体和访问权限。'},
-{id:'fb42',cat:'涉密人员管理',q:'核心涉密人员脱密期不少于____年。',a:['3'],exp:'核心涉密人员脱密期不少于3年，重要涉密人员不少于2年，一般涉密人员不少于1年。'},
-{id:'fb43',cat:'涉密人员管理',q:'重要涉密人员脱密期不少于____年。',a:['2'],exp:'核心涉密人员脱密期不少于3年，重要涉密人员不少于2年，一般涉密人员不少于1年。'},
-{id:'fb44',cat:'涉密人员管理',q:'一般涉密人员脱密期不少于____年。',a:['1'],exp:'核心涉密人员脱密期不少于3年，重要涉密人员不少于2年，一般涉密人员不少于1年。'},
-{id:'fb45',cat:'泄密案件报告与违法处置',q:'发现国家秘密已经泄露或者可能泄露时，应当立即采取____措施并及时报告单位。',a:['补救'],exp:'发现泄密应立即采取补救措施并报告。'},
-{id:'fb46',cat:'泄密案件报告与违法处置',q:'涉密人员脱密期结束后，应当对知悉的国家秘密继续履行____义务。',a:['保密'],exp:'脱密期结束后仍需继续履行保密义务。'},
-{id:'fb47',cat:'泄密案件报告与违法处置',q:'涉密人员在脱密期内不得到境外（驻华）机构、组织或者____独资企业工作。',a:['外商'],exp:'脱密期内不得到境外机构或外商独资企业工作。'},
-{id:'fb48',cat:'泄密案件报告与违法处置',q:'涉密人员在脱密期内未经批准不得擅自____。',a:['出境'],exp:'脱密期内未经批准不得擅自出境。'},
-{id:'fb49',cat:'泄密案件报告与违法处置',q:'为境外的机构、组织、人员窃取、刺探、收买、非法提供国家秘密或者情报的，处五年以上____年以下有期徒刑。',a:['10'],exp:'刑法第111条：处五年以上十年以下有期徒刑；情节严重的处十年以上有期徒刑或无期徒刑。'},
-{id:'fb50',cat:'泄密案件报告与违法处置',q:'以窃取、刺探、收买方法，非法获取国家秘密的，处____年以下有期徒刑、拘役、管制或者剥夺政治权利。',a:['3'],exp:'刑法第282条第一款：处三年以下有期徒刑；情节严重的处三年以上七年以下。'},
-];
-
-// --- TRUE/FALSE QUESTIONS ---
-const TRUE_FALSE = [
+// ===================== TRUE/FALSE QUESTIONS =====================
+const TRUE_FALSE=[
 {id:'tf1',cat:'总则',q:'一切国家机关和武装力量、各政党和各人民团体、企业事业组织和其他社会组织以及公民都有保密的义务。',a:true,exp:'《保守国家秘密法》规定一切机关、组织和个人都有保密义务。'},
 {id:'tf2',cat:'总则',q:'任何危害国家秘密安全的行为，都必须受到法律追究。',a:true,exp:'危害国家秘密安全的行为必须受到法律追究。'},
-{id:'tf3',cat:'总则',q:'绝密级国家秘密泄露会使国家安全和利益遭受严重损害。',a:false,exp:'绝密级泄露会遭受"特别严重的损害"，机密级才是"严重的损害"。'},
+{id:'tf3',cat:'总则',q:'绝密级国家秘密泄露会使国家安全和利益遭受严重损害。',a:false,exp:'绝密级泄露遭受"特别严重的损害"。'},
 {id:'tf4',cat:'总则',q:'机密级国家秘密泄露会使国家安全和利益遭受严重的损害。',a:true,exp:'机密级泄露遭受严重的损害。'},
-{id:'tf5',cat:'总则',q:'秘密级国家秘密泄露会使国家安全和利益遭受特别严重的损害。',a:false,exp:'秘密级泄露遭受"损害"，不是"特别严重的损害"。'},
-{id:'tf6',cat:'总则',q:'需要社会公众广泛知晓或者参与的事项可以确定为国家秘密。',a:false,exp:'需要社会公众广泛知晓或参与的事项不得确定为国家秘密。'},
-{id:'tf7',cat:'总则',q:'已经依法公开或者无法控制知悉范围的事项不得确定为国家秘密。',a:true,exp:'已经公开或无法控制知悉范围的不得确定为国家秘密。'},
-{id:'tf8',cat:'总则',q:'属于工作秘密、商业秘密、个人隐私的事项可以确定为国家秘密。',a:false,exp:'属于工作秘密、商业秘密、个人隐私的事项不得确定为国家秘密。'},
+{id:'tf5',cat:'总则',q:'秘密级国家秘密泄露会使国家安全和利益遭受特别严重的损害。',a:false,exp:'秘密级泄露遭受"损害"。'},
+{id:'tf6',cat:'总则',q:'需要社会公众广泛知晓或者参与的事项可以确定为国家秘密。',a:false,exp:'需公众广泛知晓的事项不得确定为国家秘密。'},
+{id:'tf7',cat:'总则',q:'已经依法公开或者无法控制知悉范围的事项不得确定为国家秘密。',a:true,exp:'已公开或无法控制的不得确定为国家秘密。'},
+{id:'tf8',cat:'总则',q:'属于工作秘密、商业秘密、个人隐私的事项可以确定为国家秘密。',a:false,exp:'工作秘密、商业秘密、个人隐私不得确定为国家秘密。'},
 {id:'tf9',cat:'定密管理',q:'定密包括原始定密和派生定密。',a:true,exp:'定密分为原始定密和派生定密。'},
-{id:'tf10',cat:'定密管理',q:'定密应当坚持最小化、精准化原则。',a:true,exp:'定密坚持最小化、精准化原则。'},
-{id:'tf11',cat:'定密管理',q:'单位主要负责人及其指定的人员为定密责任人。',a:true,exp:'单位主要负责人及其指定人员为定密责任人。'},
-{id:'tf12',cat:'定密管理',q:'国家秘密的保密期限可以确定为长期。',a:false,exp:'除保密事项范围有明确规定外，保密期限不得确定为长期。'},
-{id:'tf13',cat:'定密管理',q:'国家秘密的保密期限，绝密级不超过30年。',a:true,exp:'绝密级不超过30年。'},
-{id:'tf14',cat:'定密管理',q:'国家秘密的保密期限，机密级不超过30年。',a:false,exp:'机密级不超过20年，不是30年。'},
-{id:'tf15',cat:'定密管理',q:'国家秘密的保密期限，秘密级不超过10年。',a:true,exp:'秘密级不超过10年。'},
-{id:'tf16',cat:'定密管理',q:'国家秘密的知悉范围应当根据工作需要限定在最小范围。',a:true,exp:'知悉范围应限定在最小范围。'},
-{id:'tf17',cat:'定密管理',q:'国家秘密知悉范围以外的单位及其人员，因工作需要知悉国家秘密的，应当经原定密机关、单位同意。',a:true,exp:'知悉范围外人员需经原定密机关单位同意。'},
-{id:'tf18',cat:'定密管理',q:'国家秘密的密级变更只能由原定密机关、单位决定。',a:false,exp:'也可以由其上级机关决定。'},
-{id:'tf19',cat:'国家秘密载体',q:'不属于国家秘密的，不得作出国家秘密标志。',a:true,exp:'不属于国家秘密的不得作出标志。'},
-{id:'tf20',cat:'国家秘密载体',q:'国家秘密载体应当相对集中管理，建立台账，做到账物相符。',a:true,exp:'应当建立台账、账物相符。'},
-{id:'tf21',cat:'国家秘密载体',q:'传递国家秘密载体可以通过普通邮政传递。',a:false,exp:'不得通过普通邮政或快递等无保密措施渠道传递。'},
-{id:'tf22',cat:'国家秘密载体',q:'传递国家秘密载体可以通过快递传递。',a:false,exp:'不得通过快递等无保密措施渠道传递。'},
-{id:'tf23',cat:'国家秘密载体',q:'收发绝密级国家秘密载体，应当指定专人负责。',a:true,exp:'收发绝密级载体应指定专人负责。'},
-{id:'tf24',cat:'国家秘密载体',q:'传递、携带绝密级国家秘密载体，应当两人以上同行。',a:true,exp:'绝密级载体传递携带应两人以上同行。'},
-{id:'tf25',cat:'国家秘密载体',q:'阅读和使用国家秘密载体不需要办理登记手续。',a:false,exp:'阅读使用载体应办理登记、签收手续。'},
-{id:'tf26',cat:'国家秘密载体',q:'工作人员离开办公场所，应当将国家秘密载体存放在保密设备里。',a:true,exp:'离开办公场所应将载体存入保密设备。'},
-{id:'tf27',cat:'国家秘密载体',q:'销毁国家秘密载体只需要随意丢弃即可。',a:false,exp:'销毁应确保信息无法还原，履行清点、登记、审批手续。'},
-{id:'tf28',cat:'国家秘密载体',q:'制作国家秘密载体过程中形成的不需要归档的材料，应当及时销毁。',a:true,exp:'不需归档的材料应及时销毁。'},
-{id:'tf29',cat:'国家秘密载体',q:'非法获取、持有国家秘密载体是禁止行为。',a:true,exp:'禁止非法获取、持有国家秘密载体。'},
-{id:'tf30',cat:'国家秘密载体',q:'在私人交往和通信中可以涉及国家秘密。',a:false,exp:'禁止在私人交往和通信中涉及国家秘密。'},
-{id:'tf31',cat:'国家秘密载体',q:'禁止将未经安全技术处理的退出使用的涉密信息设备赠送、出售、丢弃或改作其他用途。',a:true,exp:'退出使用的涉密信息设备须经安全技术处理。'},
-{id:'tf32',cat:'信息系统与信息设备',q:'使用非涉密信息系统、非涉密信息设备存储或者处理国家秘密是禁止行为。',a:true,exp:'禁止使用非涉密设备存储处理国家秘密。'},
-{id:'tf33',cat:'信息系统与信息设备',q:'涉密信息系统可以擅自卸载安全程序。',a:false,exp:'禁止擅自卸载、修改、停用安全技术程序。'},
-{id:'tf34',cat:'信息系统与信息设备',q:'涉密信息设备使用未经审批的外接设备是禁止行为。',a:true,exp:'禁止使用未经审批的外接设备。'},
-{id:'tf35',cat:'涉密会议管理',q:'涉密会议场所可以带入手机等无线设备。',a:false,exp:'禁止带入智能便携式穿戴设备及手机等无线设备。'},
-{id:'tf36',cat:'涉密会议管理',q:'涉密会议应当根据会议的内容确定密级。',a:true,exp:'涉密会议应根据内容确定密级。'},
-{id:'tf37',cat:'保密要害部门部位',q:'保密要害部门是指涉及绝密级或者较多机密级、秘密级国家秘密的内设机构。',a:true,exp:'保密要害部门涉及绝密级或较多机密级、秘密级国家秘密。'},
-{id:'tf38',cat:'保密要害部门部位',q:'保密要害部位是指集中制作、存放、保管国家秘密载体、密品的专门场所。',a:true,exp:'保密要害部位是集中制作存放保管载体和密品的专门场所。'},
-{id:'tf39',cat:'保密要害部门部位',q:'可以将普通手机带入保密要害部门部位。',a:false,exp:'严禁将普通手机、平板电脑等便携电子设备带入保密要害部门部位。'},
-{id:'tf40',cat:'涉密人员管理',q:'在岗涉密人员每人每年度保密教育培训不少于16学时。',a:true,exp:'每人每年度不少于16学时。'},
-{id:'tf41',cat:'涉密人员管理',q:'涉密人员出境不需要履行审批程序。',a:false,exp:'出境应履行审批程序。'},
-{id:'tf42',cat:'涉外管理',q:'对外交流内容、谈判口径、提供资料和产品应当经过审查审批。',a:true,exp:'对外交流内容应经过审查审批。'},
-{id:'tf43',cat:'新闻宣传',q:'拟公开发布的信息通过保密审查审批后，可以对内容进行修改。',a:false,exp:'通过审查后不得修改内容，确需修改的应重新审查。'},
-{id:'tf44',cat:'新闻宣传',q:'单位应当依法对拟公开的信息进行保密审查。',a:true,exp:'应依法对拟公开信息进行保密审查。'},
-{id:'tf45',cat:'协作配套管理',q:'可以选择不具备相应保密资质的单位承担涉密协作配套任务。',a:false,exp:'禁止选择不具备保密资质的单位承担涉密协作配套任务。'},
-{id:'tf46',cat:'涉密人员管理',q:'涉密人员离岗前应当经过审批，接受保密提醒谈话，清退涉密载体和访问权限。',a:true,exp:'离岗前应经过审批、接受提醒谈话、清退涉密载体和权限。'},
-{id:'tf47',cat:'涉密人员管理',q:'涉密人员离职确因工作需要带离国家秘密载体的，应当报本单位主要负责人审批并指定专人查验。',a:true,exp:'离职带离载体应报主要负责人审批并指定专人查验。'},
-{id:'tf48',cat:'涉密人员管理',q:'核心涉密人员脱密期不少于3年。',a:true,exp:'核心涉密人员脱密期不少于3年。'},
-{id:'tf49',cat:'涉密人员管理',q:'重要涉密人员脱密期不少于1年。',a:false,exp:'重要涉密人员脱密期不少于2年，不是1年。'},
-{id:'tf50',cat:'涉密人员管理',q:'一般涉密人员脱密期不少于2年。',a:false,exp:'一般涉密人员脱密期不少于1年，不是2年。'},
-{id:'tf51',cat:'涉密人员管理',q:'涉密人员在脱密期内可以到外商独资企业工作。',a:false,exp:'脱密期内不得到境外机构或外商独资企业工作。'},
-{id:'tf52',cat:'涉密人员管理',q:'涉密人员在脱密期内未经批准不得擅自出境。',a:true,exp:'脱密期内未经批准不得擅自出境。'},
-{id:'tf53',cat:'涉密人员管理',q:'涉密人员离职后在脱密期内不需要向原单位报告个人情况。',a:false,exp:'脱密期内应定期向原单位报告就业变更、个人重大事项等。'},
-{id:'tf54',cat:'泄密案件报告与违法处置',q:'涉密人员脱密期结束后，不再需要对知悉的国家秘密履行保密义务。',a:false,exp:'脱密期结束后仍应继续履行保密义务。'},
-{id:'tf55',cat:'泄密案件报告与违法处置',q:'发现国家秘密已经泄露或者可能泄露时，应当立即采取补救措施并及时报告单位。',a:true,exp:'发现泄密应立即采取补救措施并报告。'},
-{id:'tf56',cat:'泄密案件报告与违法处置',q:'为境外机构窃取、刺探、收买、非法提供国家秘密的，不受法律追究。',a:false,exp:'刑法第111条：为境外窃取刺探收买非法提供国家秘密的，处五年以上十年以下有期徒刑。'},
-{id:'tf57',cat:'泄密案件报告与违法处置',q:'非法持有属于国家绝密、机密的文件资料，拒不说明来源与用途的，构成犯罪。',a:true,exp:'刑法第282条第二款：非法持有绝密机密文件拒不说明来源用途的，处三年以下有期徒刑。'},
-{id:'tf58',cat:'泄密案件报告与违法处置',q:'实施间谍行为有自首或立功表现的，可以从轻、减轻或免除处罚。',a:true,exp:'反间谍法第55条：有自首或立功表现可从轻减轻或免除处罚。'},
-{id:'tf59',cat:'泄密案件报告与违法处置',q:'在境外受胁迫参加间谍组织，入境后及时向国家安全机关如实说明并有悔改表现的，可以不予追究。',a:true,exp:'反间谍法第55条第二款：如实说明并有悔改表现可不予追究。'},
+{id:'tf10',cat:'定密管理',q:'单位主要负责人及其指定的人员为定密责任人。',a:true,exp:'单位主要负责人及其指定人员为定密责任人。'},
+{id:'tf11',cat:'定密管理',q:'国家秘密的保密期限可以确定为长期。',a:false,exp:'除另有规定外，保密期限不得确定为长期。'},
+{id:'tf12',cat:'定密管理',q:'国家秘密的保密期限，绝密级不超过30年。',a:true,exp:'绝密级不超过30年。'},
+{id:'tf13',cat:'定密管理',q:'国家秘密的保密期限，机密级不超过30年。',a:false,exp:'机密级不超过20年。'},
+{id:'tf14',cat:'定密管理',q:'国家秘密的保密期限，秘密级不超过10年。',a:true,exp:'秘密级不超过10年。'},
+{id:'tf15',cat:'定密管理',q:'国家秘密的知悉范围应当根据工作需要限定在最小范围。',a:true,exp:'应限定在最小范围。'},
+{id:'tf16',cat:'定密管理',q:'国家秘密知悉范围以外的单位及其人员，因工作需要知悉国家秘密的，应当经原定密机关、单位同意。',a:true,exp:'需经原定密机关单位同意。'},
+{id:'tf17',cat:'定密管理',q:'国家秘密的密级变更只能由原定密机关、单位决定。',a:false,exp:'也可以由其上级机关决定。'},
+{id:'tf18',cat:'定密管理',q:'派生国家秘密的密级应当与已定密事项密级保持一致。',a:true,exp:'派生密级应与原密级保持一致。'},
+{id:'tf19',cat:'定密管理',q:'国家秘密的保密期限已满，经审核未延长的，自行解密。',a:true,exp:'保密期满未延长则自行解密。'},
+{id:'tf20',cat:'定密管理',q:'定密责任人和承办人有违规行为造成严重后果的，应当依纪依法给予处分。',a:true,exp:'造成严重后果的依纪依法给予处分。'},
+{id:'tf21',cat:'国家秘密载体',q:'不属于国家秘密的，不得作出国家秘密标志。',a:true,exp:'不属于国家秘密的不得作出标志。'},
+{id:'tf22',cat:'国家秘密载体',q:'国家秘密载体应当相对集中管理，建立台账，做到账物相符。',a:true,exp:'应建立台账、账物相符。'},
+{id:'tf23',cat:'国家秘密载体',q:'传递国家秘密载体可以通过普通邮政传递。',a:false,exp:'不得通过普通邮政传递。'},
+{id:'tf24',cat:'国家秘密载体',q:'传递国家秘密载体可以通过快递传递。',a:false,exp:'不得通过快递传递。'},
+{id:'tf25',cat:'国家秘密载体',q:'收发绝密级国家秘密载体，应当指定专人负责。',a:true,exp:'收发绝密级载体应指定专人负责。'},
+{id:'tf26',cat:'国家秘密载体',q:'传递、携带绝密级国家秘密载体，应当两人以上同行。',a:true,exp:'绝密级载体传递携带应两人以上同行。'},
+{id:'tf27',cat:'国家秘密载体',q:'阅读和使用国家秘密载体不需要办理登记手续。',a:false,exp:'应办理登记、签收手续。'},
+{id:'tf28',cat:'国家秘密载体',q:'工作人员离开办公场所，应当将国家秘密载体存放在保密设备里。',a:true,exp:'应存入保密设备。'},
+{id:'tf29',cat:'国家秘密载体',q:'销毁国家秘密载体只需要随意丢弃即可。',a:false,exp:'应确保信息无法还原并履行手续。'},
+{id:'tf30',cat:'国家秘密载体',q:'绝密级国家秘密载体未经批准不得复制、汇编和摘抄。',a:true,exp:'绝密级载体未经批准不得复制汇编摘抄。'},
+{id:'tf31',cat:'国家秘密载体',q:'制作国家秘密载体过程中形成的不需要归档的材料，应当及时销毁。',a:true,exp:'不需归档的材料应及时销毁。'},
+{id:'tf32',cat:'国家秘密载体',q:'非法获取、持有国家秘密载体是禁止行为。',a:true,exp:'禁止非法获取持有载体。'},
+{id:'tf33',cat:'国家秘密载体',q:'在私人交往和通信中可以涉及国家秘密。',a:false,exp:'禁止在私人交往通信中涉及国家秘密。'},
+{id:'tf34',cat:'国家秘密载体',q:'禁止将未经安全技术处理的退出使用的涉密信息设备赠送、出售、丢弃或改作其他用途。',a:true,exp:'退出使用须经安全技术处理。'},
+{id:'tf35',cat:'密品管理',q:'密品是指直接涉及国家秘密的设备、产品等。',a:true,exp:'密品是直接涉及国家秘密的设备、产品。'},
+{id:'tf36',cat:'密品管理',q:'密品应当建立台账，做到账物相符。',a:true,exp:'密品应建立台账。'},
+{id:'tf37',cat:'密品管理',q:'密品应当确定密级、保密期限和知悉范围。',a:true,exp:'密品应确定密级保密期限和知悉范围。'},
+{id:'tf38',cat:'密品管理',q:'对外形和构造容易暴露国家秘密的密品，应当采取保护措施。',a:true,exp:'应采取保护措施。'},
+{id:'tf39',cat:'密品管理',q:'密品交接时无需登记签收手续。',a:false,exp:'密品交接应履行登记签收手续。'},
+{id:'tf40',cat:'信息系统与信息设备',q:'使用非涉密信息系统、非涉密信息设备存储或者处理国家秘密是禁止行为。',a:true,exp:'禁止使用非涉密设备存储处理国家秘密。'},
+{id:'tf41',cat:'信息系统与信息设备',q:'涉密信息系统可以擅自卸载安全程序。',a:false,exp:'禁止擅自卸载修改停用安全程序。'},
+{id:'tf42',cat:'信息系统与信息设备',q:'涉密信息设备使用未经审批的外接设备是禁止行为。',a:true,exp:'禁止使用未经审批的外接设备。'},
+{id:'tf43',cat:'信息系统与信息设备',q:'在互联网及其他公共信息网络中传递国家秘密是禁止行为。',a:true,exp:'禁止在互联网传递国家秘密。'},
+{id:'tf44',cat:'涉密会议管理',q:'涉密会议场所可以带入手机等无线设备。',a:false,exp:'禁止带入智能穿戴设备及手机等。'},
+{id:'tf45',cat:'涉密会议管理',q:'涉密会议应当根据会议的内容确定密级。',a:true,exp:'应根据内容确定密级。'},
+{id:'tf46',cat:'涉密会议管理',q:'涉密会议应当限定参加人员和工作范围，对参加人员进行身份核实和保密教育。',a:true,exp:'应限定人员范围并核实身份。'},
+{id:'tf47',cat:'涉密会议管理',q:'涉密会议国家秘密载体的发放、清退、保管和销毁应当指定人员负责。',a:true,exp:'应指定人员负责载体管理。'},
+{id:'tf48',cat:'涉密会议管理',q:'重要涉密会议主办部门应当制定保密方案，落实保密措施。',a:true,exp:'应制定保密方案。'},
+{id:'tf49',cat:'保密要害部门部位',q:'保密要害部门是指涉及绝密级或较多机密级、秘密级国家秘密的内设机构。',a:true,exp:'保密要害部门涉及绝密级或较多机密级、秘密级。'},
+{id:'tf50',cat:'保密要害部门部位',q:'保密要害部位是指集中制作、存放、保管国家秘密载体、密品的专门场所。',a:true,exp:'保密要害部位是集中制作存放保管载体和密品的专门场所。'},
+{id:'tf51',cat:'保密要害部门部位',q:'可以将普通手机带入保密要害部门部位。',a:false,exp:'严禁带入普通手机等便携电子设备。'},
+{id:'tf52',cat:'外场试验管理',q:'参试人员应当遵守外场试验牵头单位及外场试验场所管理单位保密要求。',a:true,exp:'参试人员应遵守保密要求。'},
+{id:'tf53',cat:'协作配套管理',q:'禁止选择不具备相应保密资质的单位承担涉密协作配套任务。',a:true,exp:'禁止选择不具备保密资质的单位。'},
+{id:'tf54',cat:'协作配套管理',q:'严格控制分包项目的涉密内容，不得提供项目研制必需之外的涉密信息。',a:true,exp:'不得提供研制必需外的涉密信息。'},
+{id:'tf55',cat:'涉密人员管理',q:'涉密人员离岗前应当经过审批，接受保密提醒谈话，清退涉密载体和访问权限。',a:true,exp:'离岗前应经过审批并清退涉密载体。'},
+{id:'tf56',cat:'涉密人员管理',q:'涉密人员离职确因工作需要带离国家秘密载体的，应当报本单位主要负责人审批。',a:true,exp:'应报主要负责人审批。'},
+{id:'tf57',cat:'涉密人员管理',q:'涉密人员应当经过保密教育培训，签订保密承诺书。',a:true,exp:'应签订保密承诺书。'},
+{id:'tf58',cat:'涉密人员管理',q:'拟任用到涉密岗位的人员在保密审查时应当提供真实、完整的个人信息。',a:true,exp:'应提供真实完整个人信息。'},
+{id:'tf59',cat:'涉密人员管理',q:'涉密人员出境不需要履行审批程序。',a:false,exp:'出境应履行审批程序。'},
+{id:'tf60',cat:'涉密人员管理',q:'涉密人员在脱密期内可以到外商独资企业工作。',a:false,exp:'脱密期内不得到外商独资企业工作。'},
+{id:'tf61',cat:'涉密人员管理',q:'涉密人员在脱密期内未经批准不得擅自出境。',a:true,exp:'脱密期内未经批准不得出境。'},
+{id:'tf62',cat:'涉密人员管理',q:'涉密人员离职后在脱密期内不需要向原单位报告个人情况。',a:false,exp:'脱密期内应定期报告个人情况。'},
+{id:'tf63',cat:'涉密人员管理',q:'涉密人员脱密期结束后，不再需要对知悉的国家秘密履行保密义务。',a:false,exp:'脱密期结束后仍应继续履行保密义务。'},
+{id:'tf64',cat:'涉密人员管理',q:'涉密人员在境外遇骚扰、策反等情况，应及时向我驻当地外交机构报告。',a:true,exp:'应及时向我驻当地外交机构报告。'},
+{id:'tf65',cat:'泄密案件报告与违法处置',q:'发现国家秘密已经泄露或者可能泄露时，应当立即采取补救措施并及时报告单位。',a:true,exp:'应立即采取补救措施并报告。'},
+{id:'tf66',cat:'泄密案件报告与违法处置',q:'为境外机构窃取、刺探、收买、非法提供国家秘密的，不受法律追究。',a:false,exp:'刑法第111条：处五年以上十年以下有期徒刑。'},
+{id:'tf67',cat:'泄密案件报告与违法处置',q:'非法持有属于国家绝密、机密的文件资料，拒不说明来源与用途的，构成犯罪。',a:true,exp:'刑法第282条第二款构成犯罪。'},
+{id:'tf68',cat:'泄密案件报告与违法处置',q:'实施间谍行为有自首或立功表现的，可以从轻、减轻或免除处罚。',a:true,exp:'反间谍法第55条可从轻减轻或免除。'},
+{id:'tf69',cat:'泄密案件报告与违法处置',q:'在境外受胁迫参加间谍组织，入境后及时向国家安全机关如实说明并有悔改表现的，可以不予追究。',a:true,exp:'反间谍法第55条第二款可不予追究。'},
+{id:'tf70',cat:'新闻宣传与信息发布',q:'单位应当依法对拟公开的信息进行保密审查。',a:true,exp:'应依法进行保密审查。'},
+{id:'tf71',cat:'新闻宣传与信息发布',q:'拟公开发布的信息通过保密审查审批后，可以对内容进行修改。',a:false,exp:'通过审查后不得修改，确需修改应重新审查。'},
+{id:'tf72',cat:'涉外管理',q:'对外交流内容、谈判口径、提供资料和产品应当经过审查审批。',a:true,exp:'应经过审查审批。'},
 ];
 
-// --- MULTIPLE CHOICE QUESTIONS ---
-const CHOICE = [
-{id:'ch1',cat:'总则',q:'国家秘密的密级分为几级？',opts:['两级','三级','四级','五级'],a:1,exp:'国家秘密密级分为绝密、机密、秘密三级。'},
+// ===================== MULTIPLE CHOICE QUESTIONS =====================
+const CHOICE=[
+{id:'ch1',cat:'总则',q:'国家秘密的密级分为几级？',opts:['两级','三级','四级','五级'],a:1,exp:'分为绝密、机密、秘密三级。'},
 {id:'ch2',cat:'总则',q:'下列哪项是最重要的国家秘密，泄露会使国家安全和利益遭受特别严重的损害？',opts:['秘密级','机密级','绝密级','内部级'],a:2,exp:'绝密级是最重要的国家秘密。'},
-{id:'ch3',cat:'总则',q:'下列哪项不得确定为国家秘密？',opts:['涉及国防建设的事项','需要社会公众广泛知晓或参与的事项','涉及外交事务的事项','涉及国家安全的事项'],a:1,exp:'需要社会公众广泛知晓或参与的事项不得确定为国家秘密。'},
-{id:'ch4',cat:'总则',q:'已经依法公开或者无法控制知悉范围的事项，能否确定为国家秘密？',opts:['可以确定','经审批后可以','不得确定','视情况而定'],a:2,exp:'已经公开或无法控制知悉范围的不得确定为国家秘密。'},
-{id:'ch5',cat:'总则',q:'属于工作秘密、商业秘密、个人隐私的事项，能否确定为国家秘密？',opts:['可以确定','不得确定','经审批后可以','视情况而定'],a:1,exp:'工作秘密、商业秘密、个人隐私不得确定为国家秘密。'},
-{id:'ch6',cat:'总则',q:'关于保密义务，下列说法正确的是？',opts:['只有国家机关有保密义务','只有涉密人员有保密义务','一切国家机关、武装力量、各政党、各人民团体、企业事业组织和其他社会组织以及公民都有保密义务','只有公民有保密义务'],a:2,exp:'一切机关、组织和个人都有保密义务。'},
-{id:'ch7',cat:'定密管理',q:'定密包括哪两种类型？',opts:['原始定密和派生定密','直接定密和间接定密','主动定密和被动定密','上级定密和本级定密'],a:0,exp:'定密分为原始定密和派生定密。'},
-{id:'ch8',cat:'定密管理',q:'定密应当坚持什么原则？',opts:['最大化、精准化','最小化、精准化','最小化、快速化','最大化、规范化'],a:1,exp:'定密坚持最小化、精准化原则。'},
+{id:'ch3',cat:'总则',q:'下列哪项不得确定为国家秘密？',opts:['涉及国防建设的事项','需要社会公众广泛知晓或参与的事项','涉及外交事务的事项','涉及国家安全的事项'],a:1,exp:'需公众广泛知晓的事项不得确定为国家秘密。'},
+{id:'ch4',cat:'总则',q:'已经依法公开或者无法控制知悉范围的事项，能否确定为国家秘密？',opts:['可以确定','经审批后可以','不得确定','视情况而定'],a:2,exp:'已公开或无法控制的不得确定。'},
+{id:'ch5',cat:'总则',q:'属于工作秘密、商业秘密、个人隐私的事项，能否确定为国家秘密？',opts:['可以确定','不得确定','经审批后可以','视情况而定'],a:1,exp:'工作秘密商业秘密个人隐私不得确定。'},
+{id:'ch6',cat:'总则',q:'关于保密义务，下列说法正确的是？',opts:['只有国家机关有保密义务','只有涉密人员有保密义务','一切国家机关、武装力量、各政党、各人民团体、企业事业组织和其他社会组织以及公民都有保密义务','只有公民有保密义务'],a:2,exp:'一切机关组织和个人都有保密义务。'},
+{id:'ch7',cat:'定密管理',q:'定密包括哪两种类型？',opts:['原始定密和派生定密','直接定密和间接定密','主动定密和被动定密','上级定密和本级定密'],a:0,exp:'分为原始定密和派生定密。'},
+{id:'ch8',cat:'定密管理',q:'定密应当坚持什么原则？',opts:['最大化、精准化','最小化、精准化','最小化、快速化','最大化、规范化'],a:1,exp:'坚持最小化、精准化原则。'},
 {id:'ch9',cat:'定密管理',q:'单位确定国家秘密时，书面记录应当注明哪些内容？',opts:['仅注明承办人','仅注明定密责任人','注明承办人、定密责任人和定密依据','仅注明密级'],a:2,exp:'应注明承办人、定密责任人和定密依据。'},
 {id:'ch10',cat:'定密管理',q:'国家秘密的保密期限，绝密级不超过多少年？',opts:['10年','20年','30年','40年'],a:2,exp:'绝密级不超过30年。'},
 {id:'ch11',cat:'定密管理',q:'国家秘密的保密期限，机密级不超过多少年？',opts:['10年','20年','30年','40年'],a:1,exp:'机密级不超过20年。'},
 {id:'ch12',cat:'定密管理',q:'国家秘密的保密期限，秘密级不超过多少年？',opts:['10年','20年','30年','40年'],a:0,exp:'秘密级不超过10年。'},
-{id:'ch13',cat:'定密管理',q:'除另有规定外，国家秘密的保密期限不得确定为什么？',opts:['短期','中期','长期','永久'],a:2,exp:'保密期限不得确定为长期。'},
+{id:'ch13',cat:'定密管理',q:'除另有规定外，国家秘密的保密期限不得确定为什么？',opts:['短期','中期','长期','永久'],a:2,exp:'不得确定为长期。'},
 {id:'ch14',cat:'定密管理',q:'工作过程中确定需要保密的事项，正式公布时视为？',opts:['继续保密','解密','变更密级','延长保密期限'],a:1,exp:'正式公布时即视为解密。'},
-{id:'ch15',cat:'定密管理',q:'国家秘密的知悉范围应当限定在什么范围？',opts:['最大范围','最小范围','中等范围','固定范围'],a:1,exp:'知悉范围应限定在最小范围。'},
-{id:'ch16',cat:'定密管理',q:'国家秘密的密级变更可以由谁决定？',opts:['仅原定密机关、单位','仅上级机关','原定密机关、单位或其上级机关','任意机关'],a:2,exp:'变更由原定密机关单位或其上级机关决定。'},
-{id:'ch17',cat:'定密管理',q:'单位主要负责人及其指定的人员是什么角色？',opts:['保密员','定密责任人','涉密人员','审计人员'],a:1,exp:'单位主要负责人及其指定人员为定密责任人。'},
-{id:'ch18',cat:'国家秘密载体',q:'国家秘密标志的形式不包括以下哪种？',opts:['密级★保密期限','密级★解密时间','密级★解密条件','密级★文件编号'],a:3,exp:'标志形式为"密级★保密期限""密级★解密时间""密级★解密条件"。'},
-{id:'ch19',cat:'国家秘密载体',q:'不属于国家秘密的，能否作出国家秘密标志？',opts:['可以','不得','经审批可以','视情况而定'],a:1,exp:'不属于国家秘密的不得作出标志。'},
-{id:'ch20',cat:'国家秘密载体',q:'国家秘密载体应当如何管理？',opts:['分散管理，无需台账','相对集中管理，建立台账，做到账物相符','随意存放即可','由个人自行保管'],a:1,exp:'应相对集中管理，建立台账，账物相符。'},
-{id:'ch21',cat:'国家秘密载体',q:'收发国家秘密载体应当履行哪些手续？',opts:['仅清点','仅登记','清点、编号、登记、签收','无需手续'],a:2,exp:'应履行清点、编号、登记、签收等手续。'},
-{id:'ch22',cat:'国家秘密载体',q:'传递国家秘密载体应当通过什么方式？',opts:['普通邮政','快递','机要交通、机要通信或符合保密规定的方式','电子邮件'],a:2,exp:'应通过机要交通、机要通信等方式传递。'},
-{id:'ch23',cat:'国家秘密载体',q:'传递绝密级国家秘密载体，应当几人以上同行？',opts:['一人','两人','三人','四人'],a:1,exp:'绝密级载体传递应两人以上同行。'},
-{id:'ch24',cat:'国家秘密载体',q:'收发绝密级国家秘密载体应当怎样？',opts:['任何人都可以负责','指定专人负责','由领导负责','由外包人员负责'],a:1,exp:'收发绝密级载体应指定专人负责。'},
-{id:'ch25',cat:'国家秘密载体',q:'阅读和使用国家秘密载体应当办理什么手续？',opts:['无需手续','登记、签收手续','仅口头报告','仅领导批准'],a:1,exp:'应办理登记、签收手续。'},
-{id:'ch26',cat:'国家秘密载体',q:'工作人员离开办公场所时，国家秘密载体应当怎样处理？',opts:['放在桌面上','随身携带回家','存放在保密设备里','放在抽屉里'],a:2,exp:'应存放在保密设备里。'},
-{id:'ch27',cat:'国家秘密载体',q:'销毁国家秘密载体的要求是什么？',opts:['随意丢弃即可','确保信息无法还原，履行清点、登记、审批手续','可以卖废品','可以送人'],a:1,exp:'应确保信息无法还原并履行相关手续。'},
-{id:'ch28',cat:'国家秘密载体',q:'制作国家秘密载体过程中不需要归档的材料应当怎样处理？',opts:['保留备用','及时销毁','赠送他人','堆放保存'],a:1,exp:'不需归档的材料应及时销毁。'},
-{id:'ch29',cat:'国家秘密载体',q:'下列哪项属于禁止行为？',opts:['建立台账管理载体','及时销毁不需归档材料','非法获取、持有国家秘密载体','指定专人负责绝密级载体'],a:2,exp:'禁止非法获取、持有国家秘密载体。'},
-{id:'ch30',cat:'国家秘密载体',q:'下列哪项属于禁止行为？',opts:['通过机要交通传递载体','买卖、转送或私自销毁国家秘密载体','履行清点登记手续','在保密设备中存放载体'],a:1,exp:'禁止买卖、转送或私自销毁载体。'},
-{id:'ch31',cat:'国家秘密载体',q:'关于在私人交往和通信中涉及国家秘密，下列说法正确的是？',opts:['可以涉及','禁止涉及','经审批后可以涉及','少量涉及可以'],a:1,exp:'禁止在私人交往和通信中涉及国家秘密。'},
-{id:'ch32',cat:'国家秘密载体',q:'携带国家秘密载体外出参加涉外活动时应当怎样？',opts:['可以随意携带','不得携带，确需携带的应经批准并采取严格措施','可以携带但不需审批','可以携带绝密级载体'],a:1,exp:'参加涉外活动不得携带，确需携带应经批准。'},
-{id:'ch33',cat:'国家秘密载体',q:'保存国家秘密载体应当选择什么样的场所？',opts:['任意场所','安全保密的场所和部位','公共场所','家中'],a:1,exp:'应选择安全保密的场所和部位。'},
-{id:'ch34',cat:'密品管理',q:'密品是指什么？',opts:['所有设备','直接涉及国家秘密的设备、产品等','普通产品','商业产品'],a:1,exp:'密品是直接涉及国家秘密的设备、产品等。'},
-{id:'ch35',cat:'密品管理',q:'密品应当建立什么进行管理？',opts:['记录','台账','清单','报告'],a:1,exp:'密品应建立台账管理。'},
-{id:'ch36',cat:'密品管理',q:'携带密品外出应当几人以上同行？',opts:['一人','两人','三人','四人'],a:1,exp:'携带密品外出应两人以上同行。'},
-{id:'ch37',cat:'信息系统与信息设备',q:'使用非涉密信息系统存储国家秘密属于什么行为？',opts:['允许行为','禁止行为','限制行为','不受监管的行为'],a:1,exp:'禁止使用非涉密设备存储处理国家秘密。'},
-{id:'ch38',cat:'信息系统与信息设备',q:'擅自卸载涉密信息系统安全技术程序属于什么行为？',opts:['正常维护行为','禁止行为','允许行为','必要行为'],a:1,exp:'禁止擅自卸载修改停用安全程序。'},
-{id:'ch39',cat:'信息系统与信息设备',q:'退出使用的涉密信息设备未经安全技术处理，可以怎样处理？',opts:['赠送','出售','丢弃','以上都不可以'],a:3,exp:'未经安全技术处理不得赠送、出售、丢弃或改作他用。'},
-{id:'ch40',cat:'涉密会议管理',q:'涉密会议应当根据什么确定密级？',opts:['参会人数','会议的内容','会议地点','会议时间'],a:1,exp:'应根据会议内容确定密级。'},
-{id:'ch41',cat:'涉密会议管理',q:'涉密会议场所禁止带入什么设备？',opts:['笔记本电脑','智能便携式穿戴设备及手机等无线设备','投影仪','打印机'],a:1,exp:'禁止带入智能穿戴设备及手机等无线设备。'},
-{id:'ch42',cat:'保密要害部门部位',q:'保密要害部门是指什么？',opts:['任何内设机构','涉及绝密级或较多机密级、秘密级国家秘密的内设机构','所有办公区域','会议室'],a:1,exp:'保密要害部门涉及绝密级或较多机密级、秘密级国家秘密。'},
-{id:'ch43',cat:'保密要害部门部位',q:'保密要害部位是指什么？',opts:['办公区域','集中制作、存放、保管国家秘密载体、密品的专门场所','会议室','接待室'],a:1,exp:'保密要害部位是集中制作存放保管载体和密品的专门场所。'},
-{id:'ch44',cat:'保密要害部门部位',q:'关于保密要害部门部位，下列哪项正确？',opts:['可以带入普通手机','严禁带入普通手机、平板电脑等便携电子设备','可以带入智能手表','可以带入智能眼镜'],a:1,exp:'严禁带入普通手机等便携电子设备。'},
-{id:'ch45',cat:'涉密人员管理',q:'在岗涉密人员每人每年度保密教育培训不少于多少学时？',opts:['8学时','12学时','16学时','24学时'],a:2,exp:'每人每年度不少于16学时。'},
-{id:'ch46',cat:'涉密人员管理',q:'涉密人员出境应当履行什么程序？',opts:['无需审批','审批程序','报备程序','通知程序'],a:1,exp:'出境应履行审批程序。'},
-{id:'ch47',cat:'涉密人员管理',q:'涉密人员应当签订什么文件？',opts:['劳动合同','保密承诺书','竞业协议','保密协议'],a:1,exp:'涉密人员应签订保密承诺书。'},
-{id:'ch48',cat:'涉外管理',q:'对外交流内容、谈判口径、提供资料和产品应当经过什么？',opts:['无需审查','审查审批','口头同意','领导同意即可'],a:1,exp:'应经过审查审批。'},
-{id:'ch49',cat:'新闻宣传',q:'拟公开发布的信息通过保密审查审批后，能否修改内容？',opts:['可以随意修改','不得修改，确需修改应重新审查','可以少量修改','领导同意即可修改'],a:1,exp:'通过审查后不得修改，确需修改应重新审查。'},
-{id:'ch50',cat:'协作配套管理',q:'能否选择不具备保密资质的单位承担涉密协作配套任务？',opts:['可以','禁止','经审批可以','视情况而定'],a:1,exp:'禁止选择不具备保密资质的单位承担涉密任务。'},
-{id:'ch51',cat:'涉密人员管理',q:'涉密人员离岗前应当签订什么文件？',opts:['离职协议','保密承诺书','竞业协议','保密协议'],a:1,exp:'离岗前应签订保密承诺书。'},
-{id:'ch52',cat:'涉密人员管理',q:'核心涉密人员脱密期不少于多少年？',opts:['1年','2年','3年','5年'],a:2,exp:'核心涉密人员脱密期不少于3年。'},
-{id:'ch53',cat:'涉密人员管理',q:'重要涉密人员脱密期不少于多少年？',opts:['1年','2年','3年','5年'],a:1,exp:'重要涉密人员脱密期不少于2年。'},
-{id:'ch54',cat:'涉密人员管理',q:'一般涉密人员脱密期不少于多少年？',opts:['1年','2年','3年','5年'],a:0,exp:'一般涉密人员脱密期不少于1年。'},
-{id:'ch55',cat:'涉密人员管理',q:'涉密人员在脱密期内不得做什么？',opts:['到境内企业工作','到境外机构或外商独资企业工作','在国内旅游','参加培训'],a:1,exp:'脱密期内不得到境外机构或外商独资企业工作。'},
-{id:'ch56',cat:'涉密人员管理',q:'涉密人员在脱密期内出境需要怎样？',opts:['无需审批','经批准后方可出境','禁止出境','报备即可'],a:1,exp:'脱密期内未经批准不得擅自出境。'},
-{id:'ch57',cat:'涉密人员管理',q:'涉密人员离职后在脱密期内应当怎样？',opts:['无需向原单位报告','定期向原单位报告就业变更、个人重大事项等','只需口头报告','无需任何报告'],a:1,exp:'脱密期内应定期向原单位报告个人情况。'},
-{id:'ch58',cat:'泄密案件报告与违法处置',q:'涉密人员脱密期结束后，对知悉的国家秘密应当怎样？',opts:['不再承担保密义务','继续履行保密义务','可以公开','可以随意讨论'],a:1,exp:'脱密期结束后仍应继续履行保密义务。'},
-{id:'ch59',cat:'泄密案件报告与违法处置',q:'发现国家秘密已经泄露或可能泄露时，应当怎么做？',opts:['立即采取补救措施并及时报告单位','等观察一段时间再报告','自行处理不报告','只通知同事'],a:0,exp:'应立即采取补救措施并及时报告。'},
-{id:'ch60',cat:'泄密案件报告与违法处置',q:'为境外机构窃取、刺探、收买、非法提供国家秘密的，根据刑法第111条，处多少有期徒刑？',opts:['三年以下','五年以上十年以下','十年以上','不受处罚'],a:1,exp:'刑法第111条：处五年以上十年以下有期徒刑；情节严重的处十年以上或无期徒刑。'},
-{id:'ch61',cat:'泄密案件报告与违法处置',q:'非法获取国家秘密，情节严重的，处多少有期徒刑？',opts:['一年以下','三年以下','三年以上七年以下','十年以上'],a:2,exp:'刑法第282条第一款：情节严重的处三年以上七年以下有期徒刑。'},
-{id:'ch62',cat:'泄密案件报告与违法处置',q:'非法持有属于国家绝密、机密的文件资料，拒不说明来源与用途的，处什么刑罚？',opts:['不受处罚','三年以下有期徒刑、拘役或管制','五年以上有期徒刑','十年以上有期徒刑'],a:1,exp:'刑法第282条第二款：处三年以下有期徒刑、拘役或管制。'},
-{id:'ch63',cat:'泄密案件报告与违法处置',q:'实施间谍行为有自首或立功表现的，根据反间谍法可以怎样处理？',opts:['从重处罚','从轻、减轻或免除处罚','不予追究','维持原判'],a:1,exp:'反间谍法第55条：有自首或立功表现可从轻减轻或免除处罚。'},
-{id:'ch64',cat:'泄密案件报告与违法处置',q:'在境外受胁迫参加间谍组织，入境后及时向国家安全机关如实说明并有悔改表现的，可以怎样？',opts:['从重处罚','不予追究','减刑一半','维持原判'],a:1,exp:'反间谍法第55条第二款：如实说明并有悔改表现可不予追究。'},
+{id:'ch15',cat:'定密管理',q:'国家秘密的知悉范围应当限定在什么范围？',opts:['最大范围','最小范围','中等范围','固定范围'],a:1,exp:'应限定在最小范围。'},
+{id:'ch16',cat:'定密管理',q:'国家秘密的密级变更可以由谁决定？',opts:['仅原定密机关、单位','仅上级机关','原定密机关、单位或其上级机关','任意机关'],a:2,exp:'由原定密机关单位或上级机关决定。'},
+{id:'ch17',cat:'定密管理',q:'单位主要负责人及其指定的人员是什么角色？',opts:['保密员','定密责任人','涉密人员','审计人员'],a:1,exp:'为定密责任人。'},
+{id:'ch18',cat:'定密管理',q:'派生国家秘密的密级应当与什么保持一致？',opts:['已定密事项密级','本单位最高密级','上级机关密级','保密事项范围密级'],a:0,exp:'应与已定密事项密级保持一致。'},
+{id:'ch19',cat:'定密管理',q:'国家秘密的保密期限已满且未延长时，应当如何处理？',opts:['继续保密','自行解密','上报审批','永久保密'],a:1,exp:'保密期满未延长则自行解密。'},
+{id:'ch20',cat:'国家秘密载体',q:'国家秘密标志的形式不包括以下哪种？',opts:['密级★保密期限','密级★解密时间','密级★解密条件','密级★文件编号'],a:3,exp:'标志形式不含文件编号。'},
+{id:'ch21',cat:'国家秘密载体',q:'不属于国家秘密的，能否作出国家秘密标志？',opts:['可以','不得','经审批可以','视情况而定'],a:1,exp:'不得作出标志。'},
+{id:'ch22',cat:'国家秘密载体',q:'国家秘密载体应当如何管理？',opts:['分散管理，无需台账','相对集中管理，建立台账，做到账物相符','随意存放即可','由个人自行保管'],a:1,exp:'应相对集中管理建立台账。'},
+{id:'ch23',cat:'国家秘密载体',q:'收发国家秘密载体应当履行哪些手续？',opts:['仅清点','仅登记','清点、编号、登记、签收','无需手续'],a:2,exp:'应履行清点编号登记签收手续。'},
+{id:'ch24',cat:'国家秘密载体',q:'传递国家秘密载体应当通过什么方式？',opts:['普通邮政','快递','机要交通、机要通信或符合保密规定的方式','电子邮件'],a:2,exp:'应通过机要交通机要通信等方式。'},
+{id:'ch25',cat:'国家秘密载体',q:'传递绝密级国家秘密载体，应当几人以上同行？',opts:['一人','两人','三人','四人'],a:1,exp:'应两人以上同行。'},
+{id:'ch26',cat:'国家秘密载体',q:'收发绝密级国家秘密载体应当怎样？',opts:['任何人都可以负责','指定专人负责','由领导负责','由外包人员负责'],a:1,exp:'应指定专人负责。'},
+{id:'ch27',cat:'国家秘密载体',q:'阅读和使用国家秘密载体应当办理什么手续？',opts:['无需手续','登记、签收手续','仅口头报告','仅领导批准'],a:1,exp:'应办理登记签收手续。'},
+{id:'ch28',cat:'国家秘密载体',q:'工作人员离开办公场所时，国家秘密载体应当怎样处理？',opts:['放在桌面上','随身携带回家','存放在保密设备里','放在抽屉里'],a:2,exp:'应存放在保密设备里。'},
+{id:'ch29',cat:'国家秘密载体',q:'销毁国家秘密载体的要求是什么？',opts:['随意丢弃即可','确保信息无法还原，履行清点、登记、审批手续','可以卖废品','可以送人'],a:1,exp:'应确保信息无法还原并履行手续。'},
+{id:'ch30',cat:'国家秘密载体',q:'绝密级国家秘密载体未经批准不得进行哪些操作？',opts:['阅读和使用','复制、汇编和摘抄','登记和签收','存入保密设备'],a:1,exp:'绝密级载体未经批准不得复制汇编摘抄。'},
+{id:'ch31',cat:'国家秘密载体',q:'下列哪项属于禁止行为？',opts:['建立台账管理载体','及时销毁不需归档材料','非法获取、持有国家秘密载体','指定专人负责绝密级载体'],a:2,exp:'禁止非法获取持有载体。'},
+{id:'ch32',cat:'国家秘密载体',q:'关于在私人交往和通信中涉及国家秘密，下列说法正确的是？',opts:['可以涉及','禁止涉及','经审批后可以涉及','少量涉及可以'],a:1,exp:'禁止涉及国家秘密。'},
+{id:'ch33',cat:'国家秘密载体',q:'携带国家秘密载体外出参加涉外活动时应当怎样？',opts:['可以随意携带','不得携带，确需携带的应经批准并采取严格措施','可以携带但不需审批','可以携带绝密级载体'],a:1,exp:'参加涉外活动不得携带，确需携带应经批准。'},
+{id:'ch34',cat:'国家秘密载体',q:'保存国家秘密载体应当选择什么样的场所？',opts:['任意场所','安全保密的场所和部位','公共场所','家中'],a:1,exp:'应选择安全保密的场所。'},
+{id:'ch35',cat:'密品管理',q:'密品是指什么？',opts:['所有设备','直接涉及国家秘密的设备、产品等','普通产品','商业产品'],a:1,exp:'密品是直接涉及国家秘密的设备产品。'},
+{id:'ch36',cat:'密品管理',q:'密品应当建立什么进行管理？',opts:['记录','台账','清单','报告'],a:1,exp:'应建立台账管理。'},
+{id:'ch37',cat:'密品管理',q:'携带密品外出应当几人以上同行？',opts:['一人','两人','三人','四人'],a:1,exp:'应两人以上同行。'},
+{id:'ch38',cat:'密品管理',q:'密品销毁应当履行什么程序？',opts:['审批程序','公开招标程序','竞价拍卖程序','无需程序'],a:0,exp:'应履行审批程序。'},
+{id:'ch39',cat:'信息系统与信息设备',q:'使用非涉密信息系统存储国家秘密属于什么行为？',opts:['允许行为','禁止行为','限制行为','不受监管的行为'],a:1,exp:'属于禁止行为。'},
+{id:'ch40',cat:'信息系统与信息设备',q:'擅自卸载涉密信息系统安全技术程序属于什么行为？',opts:['正常维护行为','禁止行为','允许行为','必要行为'],a:1,exp:'属于禁止行为。'},
+{id:'ch41',cat:'信息系统与信息设备',q:'退出使用的涉密信息设备未经安全技术处理，可以怎样处理？',opts:['赠送','出售','丢弃','以上都不可以'],a:3,exp:'未经处理不得赠送出售丢弃。'},
+{id:'ch42',cat:'信息系统与信息设备',q:'涉密信息设备原则上根据什么确定涉密等级？',opts:['存储处理传输信息的最高密级','最低密级','平均密级','文件数量'],a:0,exp:'按最高密级确定涉密等级。'},
+{id:'ch43',cat:'涉密会议管理',q:'涉密会议应当根据什么确定密级？',opts:['参会人数','会议的内容','会议地点','会议时间'],a:1,exp:'根据内容确定密级。'},
+{id:'ch44',cat:'涉密会议管理',q:'涉密会议场所禁止带入什么设备？',opts:['笔记本电脑','智能便携式穿戴设备及手机等无线设备','投影仪','打印机'],a:1,exp:'禁止带入智能穿戴设备及手机等。'},
+{id:'ch45',cat:'保密要害部门部位',q:'保密要害部门是指什么？',opts:['任何内设机构','涉及绝密级或较多机密级、秘密级国家秘密的内设机构','所有办公区域','会议室'],a:1,exp:'涉及绝密级或较多机密级秘密级的内设机构。'},
+{id:'ch46',cat:'保密要害部门部位',q:'保密要害部位是指什么？',opts:['办公区域','集中制作、存放、保管国家秘密载体、密品的专门场所','会议室','接待室'],a:1,exp:'是集中制作存放保管载体和密品的专门场所。'},
+{id:'ch47',cat:'保密要害部门部位',q:'关于保密要害部门部位，下列哪项正确？',opts:['可以带入普通手机','严禁带入普通手机、平板电脑等便携电子设备','可以带入智能手表','可以带入智能眼镜'],a:1,exp:'严禁带入便携电子设备。'},
+{id:'ch48',cat:'涉密人员管理',q:'在岗涉密人员每人每年度保密教育培训不少于多少学时？',opts:['8学时','12学时','16学时','24学时'],a:2,exp:'不少于16学时。'},
+{id:'ch49',cat:'涉密人员管理',q:'涉密人员出境应当履行什么程序？',opts:['无需审批','审批程序','报备程序','通知程序'],a:1,exp:'应履行审批程序。'},
+{id:'ch50',cat:'涉密人员管理',q:'涉密人员应当签订什么文件？',opts:['劳动合同','保密承诺书','竞业协议','保密协议'],a:1,exp:'应签订保密承诺书。'},
+{id:'ch51',cat:'涉密人员管理',q:'核心涉密人员脱密期不少于多少年？',opts:['1年','2年','3年','5年'],a:2,exp:'核心涉密人员不少于3年。'},
+{id:'ch52',cat:'涉密人员管理',q:'重要涉密人员脱密期不少于多少年？',opts:['1年','2年','3年','5年'],a:1,exp:'重要涉密人员不少于2年。'},
+{id:'ch53',cat:'涉密人员管理',q:'一般涉密人员脱密期不少于多少年？',opts:['1年','2年','3年','5年'],a:0,exp:'一般涉密人员不少于1年。'},
+{id:'ch54',cat:'涉密人员管理',q:'涉密人员在脱密期内不得做什么？',opts:['到境内企业工作','到境外机构或外商独资企业工作','在国内旅游','参加培训'],a:1,exp:'不得到境外机构或外商独资企业工作。'},
+{id:'ch55',cat:'涉密人员管理',q:'涉密人员在脱密期内出境需要怎样？',opts:['无需审批','经批准后方可出境','禁止出境','报备即可'],a:1,exp:'经批准后方可出境。'},
+{id:'ch56',cat:'涉密人员管理',q:'涉密人员离职后在脱密期内应当怎样？',opts:['无需向原单位报告','定期向原单位报告就业变更、个人重大事项等','只需口头报告','无需任何报告'],a:1,exp:'应定期向原单位报告。'},
+{id:'ch57',cat:'泄密案件报告与违法处置',q:'涉密人员脱密期结束后，对知悉的国家秘密应当怎样？',opts:['不再承担保密义务','继续履行保密义务','可以公开','可以随意讨论'],a:1,exp:'应继续履行保密义务。'},
+{id:'ch58',cat:'泄密案件报告与违法处置',q:'发现国家秘密已经泄露或可能泄露时，应当怎么做？',opts:['立即采取补救措施并及时报告单位','等观察一段时间再报告','自行处理不报告','只通知同事'],a:0,exp:'应立即采取补救措施并报告。'},
+{id:'ch59',cat:'泄密案件报告与违法处置',q:'为境外机构窃取、刺探、收买、非法提供国家秘密的，根据刑法第111条，处多少有期徒刑？',opts:['三年以下','五年以上十年以下','十年以上','不受处罚'],a:1,exp:'处五年以上十年以下有期徒刑。'},
+{id:'ch60',cat:'泄密案件报告与违法处置',q:'非法获取国家秘密，情节严重的，处多少有期徒刑？',opts:['一年以下','三年以下','三年以上七年以下','十年以上'],a:2,exp:'情节严重处三年以上七年以下。'},
+{id:'ch61',cat:'泄密案件报告与违法处置',q:'非法持有属于国家绝密、机密的文件资料，拒不说明来源与用途的，处什么刑罚？',opts:['不受处罚','三年以下有期徒刑、拘役或管制','五年以上有期徒刑','十年以上有期徒刑'],a:1,exp:'处三年以下有期徒刑拘役或管制。'},
+{id:'ch62',cat:'泄密案件报告与违法处置',q:'实施间谍行为有自首或立功表现的，根据反间谍法可以怎样处理？',opts:['从重处罚','从轻、减轻或免除处罚','不予追究','维持原判'],a:1,exp:'可从轻减轻或免除处罚。'},
+{id:'ch63',cat:'泄密案件报告与违法处置',q:'在境外受胁迫参加间谍组织，入境后及时向国家安全机关如实说明并有悔改表现的，可以怎样？',opts:['从重处罚','不予追究','减刑一半','维持原判'],a:1,exp:'可不予追究。'},
+{id:'ch64',cat:'新闻宣传与信息发布',q:'单位应当依法对拟公开的信息进行什么？',opts:['直接发布','保密审查','领导审批即可','无需审查'],a:1,exp:'应进行保密审查。'},
+{id:'ch65',cat:'新闻宣传与信息发布',q:'拟公开发布的信息通过保密审查审批后能否修改内容？',opts:['可以随意修改','不得修改，确需修改应重新审查','可以少量修改','领导同意即可修改'],a:1,exp:'不得修改，确需修改应重新审查。'},
+{id:'ch66',cat:'涉外管理',q:'对外交流内容、谈判口径、提供资料和产品应当经过什么？',opts:['无需审查','审查审批','口头同意','领导同意即可'],a:1,exp:'应经过审查审批。'},
+{id:'ch67',cat:'涉外管理',q:'涉及国家秘密的对外交流，应当进行什么评估？',opts:['无需评估','审查评估','经济评估','市场评估'],a:1,exp:'应进行审查评估。'},
+{id:'ch68',cat:'协作配套管理',q:'能否选择不具备保密资质的单位承担涉密协作配套任务？',opts:['可以','禁止','经审批可以','视情况而定'],a:1,exp:'禁止选择不具备保密资质的单位。'},
+{id:'ch69',cat:'协作配套管理',q:'与协作配套单位签订的涉密项目合同中，应当明确什么？',opts:['合同金额','合同文本密级、项目密级','交货期限','质量标准'],a:1,exp:'应明确合同文本密级项目密级。'},
+{id:'ch70',cat:'外场试验管理',q:'参试人员应当遵守谁的保密要求？',opts:['仅遵守本单位要求','遵守外场试验牵头单位及场所管理单位保密要求','无需遵守保密要求','自行决定'],a:1,exp:'应遵守外场试验牵头单位及场所管理单位保密要求。'},
 ];
 
 // ===================== STATE =====================
-let currentQuiz = null;  // {questions:[], answers:{}, startTime, timerId}
-let timerInterval = null;
-let currentTab = 'fillBlank';
-let wrongBankFilter = 'all';
+let currentQuiz=null,timerInterval=null,currentTab='fillBlank',wrongBankFilter='all',openDropdownId=null;
 
 // ===================== STORAGE =====================
-function loadData(key, def) {
-  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : def; }
-  catch(e) { return def; }
-}
-function saveData(key, val) {
-  try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {}
-}
-
-// Wrong question bank: {questionId: {question, yourAnswer, correctAnswer, type, cat, exp, count, lastWrong}}
-function getWrongBank() { return loadData('bk_wrongBank', {}); }
-function saveWrongBank(wb) { saveData('bk_wrongBank', wb); }
-
-// Category stats: {cat: {total, correct}}
-function getCatStats() { return loadData('bk_catStats', {}); }
-function saveCatStats(cs) { saveData('bk_catStats', cs); }
-
-// History: [{date, score, total, correct, wrong, blank, duration}]
-function getHistory() { return loadData('bk_history', []); }
-function saveHistory(h) { saveData('bk_history', h); }
+function loadData(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function saveData(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function getWrongBank(){return loadData('bk_wrongBank',{})}
+function saveWrongBank(w){saveData('bk_wrongBank',w)}
+function getCatStats(){return loadData('bk_catStats',{})}
+function saveCatStats(c){saveData('bk_catStats',c)}
+function getHistory(){return loadData('bk_history',[])}
+function saveHistory(h){saveData('bk_history',h)}
 
 // ===================== QUESTION SELECTION =====================
-// Weighted random selection: wrong questions have higher probability
-function selectQuestions(pool, count, type) {
-  const wb = getWrongBank();
-  // Build weighted pool
-  const weighted = [];
-  pool.forEach(q => {
-    const wrongEntry = wb[q.id];
-    let weight = 1; // base weight
-    if (wrongEntry) {
-      // Wrong questions get 3x base weight + bonus for repeat wrongs
-      weight = 3 + Math.min(wrongEntry.count || 1, 5);
-    }
-    for (let i = 0; i < weight; i++) weighted.push(q);
-  });
-  // Shuffle and pick
-  const selected = [];
-  const used = new Set();
-  let attempts = 0;
-  while (selected.length < count && attempts < 10000) {
-    const idx = Math.floor(Math.random() * weighted.length);
-    const q = weighted[idx];
-    if (!used.has(q.id)) {
-      used.add(q.id);
-      selected.push(q);
-    }
-    attempts++;
-  }
-  // If not enough unique, fill from remaining
-  if (selected.length < count) {
-    pool.forEach(q => {
-      if (!used.has(q.id) && selected.length < count) {
-        used.add(q.id);
-        selected.push(q);
-      }
-    });
-  }
+function selectQuestions(pool,count){
+  const wb=getWrongBank();const weighted=[];
+  pool.forEach(q=>{let w=1;if(wb[q.id])w=3+Math.min(wb[q.id].count||1,5);for(let i=0;i<w;i++)weighted.push(q)});
+  const selected=[],used=new Set();let attempts=0;
+  while(selected.length<count&&attempts<10000){const idx=Math.floor(Math.random()*weighted.length);const q=weighted[idx];if(!used.has(q.id)){used.add(q.id);selected.push(q)}attempts++}
+  if(selected.length<count){pool.forEach(q=>{if(!used.has(q.id)&&selected.length<count){used.add(q.id);selected.push(q)}})}
   return selected;
 }
 
-function startQuiz() {
-  // Select questions
-  const fbQs = selectQuestions(FILL_BLANK, 30, 'fillBlank');
-  const tfQs = selectQuestions(TRUE_FALSE, 30, 'trueFalse');
-  const chQs = selectQuestions(CHOICE, 40, 'choice');
-  
-  currentQuiz = {
-    fb: fbQs,
-    tf: tfQs,
-    ch: chQs,
-    answers: {},
-    startTime: Date.now(),
-    duration: 3600, // 1 hour in seconds
-  };
-  
-  currentTab = 'fillBlank';
-  showPage('quiz');
-  renderQuiz();
-  startTimer();
+function startQuiz(){
+  currentQuiz={fb:selectQuestions(FILL_BLANK,30),tf:selectQuestions(TRUE_FALSE,30),ch:selectQuestions(CHOICE,40),answers:{},startTime:Date.now(),duration:3600};
+  currentTab='fillBlank';showPage('quiz');renderQuiz();startTimer();
 }
 
 // ===================== TIMER =====================
-function startTimer() {
-  if (timerInterval) clearInterval(timerInterval);
-  let remaining = currentQuiz.duration;
-  updateTimerDisplay(remaining);
-  timerInterval = setInterval(() => {
-    remaining--;
-    if (remaining <= 0) {
-      clearInterval(timerInterval);
-      alert('⏰ 答题时间已到，系统将自动提交答卷！');
-      submitQuiz();
-    } else {
-      updateTimerDisplay(remaining);
-    }
-  }, 1000);
+function startTimer(){
+  if(timerInterval)clearInterval(timerInterval);
+  let r=currentQuiz.duration;updateTimerDisplay(r);
+  timerInterval=setInterval(()=>{r--;if(r<=0){clearInterval(timerInterval);alert('⏰ 答题时间已到，系统将自动提交答卷！');submitQuiz()}else updateTimerDisplay(r)},1000);
 }
-
-function updateTimerDisplay(sec) {
-  const m = Math.floor(sec / 60);
-  const s = sec % 60;
-  const el = document.getElementById('timerDisplay');
-  el.textContent = '⏱ ' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
-  if (sec <= 300) el.classList.add('warning');
-  else el.classList.remove('warning');
-}
+function updateTimerDisplay(s){const m=Math.floor(s/60),ss=s%60;const el=document.getElementById('timerDisplay');el.textContent='⏱ '+String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');if(s<=300)el.classList.add('warning');else el.classList.remove('warning')}
 
 // ===================== RENDER QUIZ =====================
-function renderQuiz() {
-  const container = document.getElementById('questionContainer');
-  let html = '';
-  let questions;
-  let typePrefix;
-  
-  if (currentTab === 'fillBlank') {
-    questions = currentQuiz.fb;
-    typePrefix = '填空题';
-  } else if (currentTab === 'trueFalse') {
-    questions = currentQuiz.tf;
-    typePrefix = '判断题';
-  } else {
-    questions = currentQuiz.ch;
-    typePrefix = '选择题';
-  }
-  
-  questions.forEach((q, idx) => {
-    const qid = q.id;
-    const answered = currentQuiz.answers[qid] !== undefined && currentQuiz.answers[qid] !== '';
-    html += '<div class="q-card' + (answered ? ' answered' : '') + '" id="card_' + qid + '">';
-    html += '<div class="q-num">' + typePrefix + ' 第' + (idx+1) + '题 <span class="q-category">' + q.cat + '</span></div>';
-    html += '<div class="q-text">' + renderQuestionText(q) + '</div>';
-    html += renderAnswerInput(q);
-    html += '</div>';
+function renderQuiz(){
+  const container=document.getElementById('questionContainer');let html='',qs,prefix;
+  if(currentTab==='fillBlank'){qs=currentQuiz.fb;prefix='填空题'}
+  else if(currentTab==='trueFalse'){qs=currentQuiz.tf;prefix='判断题'}
+  else{qs=currentQuiz.ch;prefix='选择题'}
+  qs.forEach((q,idx)=>{
+    const answered=currentQuiz.answers[q.id]!==undefined&&currentQuiz.answers[q.id]!=='';
+    html+='<div class="q-card'+(answered?' answered':'')+'" id="card_'+q.id+'">';
+    html+='<div class="q-num">'+prefix+' 第'+(idx+1)+'题 <span class="q-category">'+q.cat+'</span></div>';
+    html+='<div class="q-text">'+renderQText(q)+'</div>'+renderInput(q)+'</div>';
   });
-  
-  container.innerHTML = html;
-  attachAnswerListeners();
-  updateProgress();
+  container.innerHTML=html;updateProgress();
 }
 
-function renderQuestionText(q) {
-  if (q.type === 'fillBlank' || q.a && Array.isArray(q.a) && q.opts === undefined) {
-    // Fill-blank: show with blank
-    return q.q.replace(/____/g, '<span class="blank">&nbsp;</span>');
+function renderQText(q){
+  if(q.opts&&q.a!==undefined&&typeof q.a==='number'&&!q.opts.some(o=>typeof o==='boolean')){
+    // Fill-blank with opts: replace ____ with clickable blank
+    return q.q.replace(/____/g,'<span class="fb-blank" id="blank_'+q.id+'" onclick="toggleFBDropdown(\''+q.id+'\')">&nbsp;点击选择&nbsp;</span>');
   }
   return q.q;
 }
 
-function renderAnswerInput(q) {
-  const qid = q.id;
-  const current = currentQuiz.answers[qid];
-  
-  // Determine type
-  if (q.opts) {
-    // Multiple choice
-    let html = '<div class="mc-options">';
-    const labels = ['A','B','C','D','E'];
-    q.opts.forEach((opt, i) => {
-      const sel = current === i ? ' selected' : '';
-      html += '<div class="mc-option' + sel + '" data-qid="' + qid + '" data-val="' + i + '" onclick="selectChoice(\'' + qid + '\',' + i + ')">';
-      html += '<span class="opt-label">' + labels[i] + '</span>';
-      html += '<span class="opt-text">' + opt + '</span>';
-      html += '</div>';
-    });
-    html += '</div>';
-    return html;
-  } else if (typeof q.a === 'boolean') {
-    // True/False
-    let html = '<div class="tf-buttons">';
-    const selT = current === true ? ' selected true' : '';
-    const selF = current === false ? ' selected false' : '';
-    html += '<button class="tf-btn' + selT + '" data-qid="' + qid + '" data-val="true" onclick="selectTF(\'' + qid + '\',true)">✓ 正确</button>';
-    html += '<button class="tf-btn' + selF + '" data-qid="' + qid + '" data-val="false" onclick="selectTF(\'' + qid + '\',false)">✗ 错误</button>';
-    html += '</div>';
-    return html;
-  } else {
-    // Fill-blank
-    const val = current !== undefined ? current : '';
-    const cls = val ? ' answered' : '';
-    let html = '<input type="text" class="fb-input' + cls + '" data-qid="' + qid + '" placeholder="请输入答案..." value="' + escapeHtml(val) + '" oninput="setFillBlank(\'' + qid + '\', this.value)">';
-    return html;
-  }
-}
-
-function escapeHtml(s) {
-  if (s === undefined || s === null) return '';
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function selectChoice(qid, val) {
-  currentQuiz.answers[qid] = val;
-  // Update UI
-  document.querySelectorAll('.mc-option[data-qid="' + qid + '"]').forEach(el => {
-    el.classList.remove('selected');
-    if (parseInt(el.dataset.val) === val) el.classList.add('selected');
-  });
-  markAnswered(qid);
-  updateProgress();
-}
-
-function selectTF(qid, val) {
-  currentQuiz.answers[qid] = val;
-  document.querySelectorAll('.tf-btn[data-qid="' + qid + '"]').forEach(el => {
-    el.classList.remove('selected','true','false');
-    if ((el.dataset.val === 'true') === val) {
-      el.classList.add('selected', val ? 'true' : 'false');
+function renderInput(q){
+  const qid=q.id,cur=currentQuiz.answers[qid];
+  if(q.opts&&q.a!==undefined&&typeof q.a==='number'){
+    // Check if it's fill-blank (has ____ in question) or choice
+    if(q.q.includes('____')){
+      // Fill-blank: render dropdown below the blank
+      let html='<div class="fb-dropdown" id="dd_'+qid+'">';
+      q.opts.forEach((opt,i)=>{const sel=cur===i?' selected':'';html+='<div class="fb-option'+sel+'" onclick="selectFB(\''+qid+'\','+i+')">'+escapeHtml(opt)+'</div>'});
+      html+='</div>';return html;
     }
-  });
-  markAnswered(qid);
-  updateProgress();
-}
-
-function setFillBlank(qid, val) {
-  currentQuiz.answers[qid] = val.trim();
-  const input = document.querySelector('.fb-input[data-qid="' + qid + '"]');
-  if (input) {
-    if (val.trim()) input.classList.add('answered');
-    else input.classList.remove('answered');
+    // Multiple choice
+    let html='<div class="mc-options">';const labels=['A','B','C','D','E'];
+    q.opts.forEach((opt,i)=>{const sel=cur===i?' selected':'';html+='<div class="mc-option'+sel+'" onclick="selectChoice(\''+qid+'\','+i+')"><span class="opt-label">'+labels[i]+'</span><span class="opt-text">'+escapeHtml(opt)+'</span></div>'});
+    html+='</div>';return html;
+  }else if(typeof q.a==='boolean'){
+    let html='<div class="tf-buttons">';const sT=cur===true?' selected true':'',sF=cur===false?' selected false':'';
+    html+='<button class="tf-btn'+sT+'" onclick="selectTF(\''+qid+'\',true)">✓ 正确</button>';
+    html+='<button class="tf-btn'+sF+'" onclick="selectTF(\''+qid+'\',false)">✗ 错误</button></div>';return html;
   }
-  markAnswered(qid);
-  updateProgress();
+  return '';
 }
 
-function markAnswered(qid) {
-  const card = document.getElementById('card_' + qid);
-  if (card) {
-    const ans = currentQuiz.answers[qid];
-    if (ans !== undefined && ans !== '') card.classList.add('answered');
-    else card.classList.remove('answered');
-  }
+function escapeHtml(s){if(s===undefined||s===null)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function toggleFBDropdown(qid){
+  const dd=document.getElementById('dd_'+qid);
+  if(!dd)return;
+  // Close other open dropdown
+  if(openDropdownId&&openDropdownId!==qid){const od=document.getElementById('dd_'+openDropdownId);if(od)od.classList.remove('show')}
+  dd.classList.toggle('show');
+  openDropdownId=dd.classList.contains('show')?qid:null;
 }
 
-function attachAnswerListeners() {
-  // Listeners already attached via onclick attributes
+function selectFB(qid,val){
+  currentQuiz.answers[qid]=val;
+  const q=[...currentQuiz.fb].find(x=>x.id===qid);if(!q)return;
+  const blank=document.getElementById('blank_'+qid);
+  const dd=document.getElementById('dd_'+qid);
+  if(blank){blank.textContent=q.opts[val];blank.classList.add('filled');blank.classList.remove('filled-wrong')}
+  if(dd)dd.classList.remove('show');
+  openDropdownId=null;
+  // Update selected state
+  dd.querySelectorAll('.fb-option').forEach((el,i)=>{el.classList.toggle('selected',i===val)});
+  markAnswered(qid);updateProgress();
 }
 
-function switchTab(tab) {
-  currentTab = tab;
-  document.querySelectorAll('.section-tab').forEach((el, i) => {
-    el.classList.remove('active');
-  });
-  const tabs = document.querySelectorAll('.section-tab');
-  if (tab === 'fillBlank') tabs[0].classList.add('active');
-  else if (tab === 'trueFalse') tabs[1].classList.add('active');
+function selectChoice(qid,val){
+  currentQuiz.answers[qid]=val;
+  document.querySelectorAll('.mc-option').forEach(el=>{if(el.getAttribute('onclick')&&el.getAttribute('onclick').includes(qid))el.classList.remove('selected')});
+  event.currentTarget.classList.add('selected');
+  markAnswered(qid);updateProgress();
+}
+
+function selectTF(qid,val){
+  currentQuiz.answers[qid]=val;
+  document.querySelectorAll('.tf-btn').forEach(el=>{if(el.getAttribute('onclick')&&el.getAttribute('onclick').includes(qid)){el.classList.remove('selected','true','false')}});
+  event.currentTarget.classList.add('selected',val?'true':'false');
+  markAnswered(qid);updateProgress();
+}
+
+function markAnswered(qid){const card=document.getElementById('card_'+qid);if(card){const a=currentQuiz.answers[qid];if(a!==undefined&&a!=='')card.classList.add('answered');else card.classList.remove('answered')}}
+
+function switchTab(tab){
+  currentTab=tab;
+  document.querySelectorAll('.section-tab').forEach((el,i)=>el.classList.remove('active'));
+  const tabs=document.querySelectorAll('.section-tab');
+  if(tab==='fillBlank')tabs[0].classList.add('active');
+  else if(tab==='trueFalse')tabs[1].classList.add('active');
   else tabs[2].classList.add('active');
-  renderQuiz();
-  window.scrollTo(0, 0);
+  renderQuiz();window.scrollTo(0,0);
 }
 
-function updateProgress() {
-  const all = [...currentQuiz.fb, ...currentQuiz.tf, ...currentQuiz.ch];
-  let answered = 0;
-  let fbAns = 0, tfAns = 0, mcAns = 0;
-  
-  currentQuiz.fb.forEach(q => { if (currentQuiz.answers[q.id] !== undefined && currentQuiz.answers[q.id] !== '') fbAns++; });
-  currentQuiz.tf.forEach(q => { if (currentQuiz.answers[q.id] !== undefined && currentQuiz.answers[q.id] !== '') tfAns++; });
-  currentQuiz.ch.forEach(q => { if (currentQuiz.answers[q.id] !== undefined && currentQuiz.answers[q.id] !== '') mcAns++; });
-  
-  answered = fbAns + tfAns + mcAns;
-  
-  document.getElementById('answeredCount').textContent = answered;
-  document.getElementById('totalCount').textContent = all.length;
-  document.getElementById('fbAnswered').textContent = fbAns;
-  document.getElementById('tfAnswered').textContent = tfAns;
-  document.getElementById('mcAnswered').textContent = mcAns;
-  document.getElementById('submitAnswered').textContent = answered;
+function updateProgress(){
+  let fb=0,tf=0,mc=0;
+  currentQuiz.fb.forEach(q=>{if(currentQuiz.answers[q.id]!==undefined&&currentQuiz.answers[q.id]!=='')fb++});
+  currentQuiz.tf.forEach(q=>{if(currentQuiz.answers[q.id]!==undefined&&currentQuiz.answers[q.id]!=='')tf++});
+  currentQuiz.ch.forEach(q=>{if(currentQuiz.answers[q.id]!==undefined&&currentQuiz.answers[q.id]!=='')mc++});
+  const total=fb+tf+mc;
+  document.getElementById('answeredCount').textContent=total;
+  document.getElementById('totalCount').textContent=currentQuiz.fb.length+currentQuiz.tf.length+currentQuiz.ch.length;
+  document.getElementById('fbAnswered').textContent=fb;
+  document.getElementById('tfAnswered').textContent=tf;
+  document.getElementById('mcAnswered').textContent=mc;
+  document.getElementById('submitAnswered').textContent=total;
 }
 
 // ===================== SUBMIT & SCORE =====================
-function submitQuiz() {
-  if (timerInterval) clearInterval(timerInterval);
+function submitQuiz(){
+  if(timerInterval)clearInterval(timerInterval);
+  const all=[...currentQuiz.fb,...currentQuiz.tf,...currentQuiz.ch];
+  let correct=0,wrong=0,blank=0;const wrongDetails=[];const catRes={};
   
-  const allQuestions = [...currentQuiz.fb, ...currentQuiz.tf, ...currentQuiz.ch];
-  let correct = 0, wrong = 0, blank = 0;
-  const wrongDetails = [];
-  const catResults = {}; // {cat: {total, correct}}
+  function checkCat(cat){if(!catRes[cat])catRes[cat]={total:0,correct:0};catRes[cat].total++;return catRes[cat]}
   
-  // Check fill-blank
-  currentQuiz.fb.forEach(q => {
-    const userAns = currentQuiz.answers[q.id];
-    if (!catResults[q.cat]) catResults[q.cat] = {total:0, correct:0};
-    catResults[q.cat].total++;
-    if (userAns === undefined || userAns === '') {
-      blank++;
-      wrongDetails.push({q, yourAns:'（未作答）', correctAns:q.a.join(' / '), type:'fillBlank', isWrong:true});
-    } else if (checkFillBlankAnswer(userAns, q.a)) {
-      correct++;
-      catResults[q.cat].correct++;
-    } else {
-      wrong++;
-      wrongDetails.push({q, yourAns:userAns, correctAns:q.a.join(' / '), type:'fillBlank', isWrong:true});
-    }
+  currentQuiz.fb.forEach(q=>{
+    const ua=currentQuiz.answers[q.id];const cr=checkCat(q.cat);
+    if(ua===undefined||ua===''){blank++;wrongDetails.push({q,yourAns:'（未作答）',correctAns:q.opts[q.a],type:'fillBlank',isWrong:true})}
+    else if(ua===q.a){correct++;cr.correct++}
+    else{wrong++;wrongDetails.push({q,yourAns:q.opts[ua],correctAns:q.opts[q.a],type:'fillBlank',isWrong:true})}
+  });
+  currentQuiz.tf.forEach(q=>{
+    const ua=currentQuiz.answers[q.id];const cr=checkCat(q.cat);
+    if(ua===undefined||ua===''){blank++;wrongDetails.push({q,yourAns:'（未作答）',correctAns:q.a?'正确':'错误',type:'trueFalse',isWrong:true})}
+    else if(ua===q.a){correct++;cr.correct++}
+    else{wrong++;wrongDetails.push({q,yourAns:ua?'正确':'错误',correctAns:q.a?'正确':'错误',type:'trueFalse',isWrong:true})}
+  });
+  currentQuiz.ch.forEach(q=>{
+    const ua=currentQuiz.answers[q.id];const cr=checkCat(q.cat);
+    if(ua===undefined||ua===''){blank++;wrongDetails.push({q,yourAns:'（未作答）',correctAns:q.opts[q.a],type:'choice',isWrong:true})}
+    else if(ua===q.a){correct++;cr.correct++}
+    else{wrong++;wrongDetails.push({q,yourAns:q.opts[ua],correctAns:q.opts[q.a],type:'choice',isWrong:true})}
   });
   
-  // Check true/false
-  currentQuiz.tf.forEach(q => {
-    const userAns = currentQuiz.answers[q.id];
-    if (!catResults[q.cat]) catResults[q.cat] = {total:0, correct:0};
-    catResults[q.cat].total++;
-    if (userAns === undefined || userAns === '') {
-      blank++;
-      wrongDetails.push({q, yourAns:'（未作答）', correctAns:q.a ? '正确' : '错误', type:'trueFalse', isWrong:true});
-    } else if (userAns === q.a) {
-      correct++;
-      catResults[q.cat].correct++;
-    } else {
-      wrong++;
-      wrongDetails.push({q, yourAns: userAns ? '正确' : '错误', correctAns:q.a ? '正确' : '错误', type:'trueFalse', isWrong:true});
-    }
-  });
-  
-  // Check multiple choice
-  currentQuiz.ch.forEach(q => {
-    const userAns = currentQuiz.answers[q.id];
-    if (!catResults[q.cat]) catResults[q.cat] = {total:0, correct:0};
-    catResults[q.cat].total++;
-    if (userAns === undefined || userAns === '') {
-      blank++;
-      wrongDetails.push({q, yourAns:'（未作答）', correctAns:q.opts[q.a], type:'choice', isWrong:true});
-    } else if (userAns === q.a) {
-      correct++;
-      catResults[q.cat].correct++;
-    } else {
-      wrong++;
-      wrongDetails.push({q, yourAns:q.opts[userAns], correctAns:q.opts[q.a], type:'choice', isWrong:true});
-    }
-  });
-  
-  const score = correct; // each question is 1 point
-  const duration = Math.round((Date.now() - currentQuiz.startTime) / 1000);
+  const score=correct;const duration=Math.round((Date.now()-currentQuiz.startTime)/1000);
   
   // Update wrong bank
-  const wb = getWrongBank();
-  wrongDetails.forEach(d => {
-    const q = d.q;
-    if (wb[q.id]) {
-      wb[q.id].count = (wb[q.id].count || 1) + 1;
-      wb[q.id].lastWrong = Date.now();
-      wb[q.id].yourAnswer = d.yourAns;
-    } else {
-      wb[q.id] = {
-        question: q.q,
-        yourAnswer: d.yourAns,
-        correctAnswer: d.correctAns,
-        type: d.type,
-        cat: q.cat,
-        exp: q.exp || '',
-        count: 1,
-        lastWrong: Date.now()
-      };
-    }
-  });
-  
-  // Remove correct questions from wrong bank if they were previously wrong
-  allQuestions.forEach(q => {
-    const userAns = currentQuiz.answers[q.id];
-    if (userAns !== undefined && userAns !== '') {
-      let isCorrect = false;
-      if (q.opts) isCorrect = (userAns === q.a);
-      else if (typeof q.a === 'boolean') isCorrect = (userAns === q.a);
-      else isCorrect = checkFillBlankAnswer(userAns, q.a);
-      if (isCorrect && wb[q.id]) {
-        delete wb[q.id];
-      }
-    }
-  });
+  const wb=getWrongBank();
+  wrongDetails.forEach(d=>{const q=d.q;if(wb[q.id]){wb[q.id].count=(wb[q.id].count||1)+1;wb[q.id].lastWrong=Date.now();wb[q.id].yourAnswer=d.yourAns}else{wb[q.id]={question:q.q,yourAnswer:d.yourAns,correctAnswer:d.correctAns,type:d.type,cat:q.cat,exp:q.exp||'',count:1,lastWrong:Date.now()}}});
+  // Remove correct ones
+  all.forEach(q=>{const ua=currentQuiz.answers[q.id];if(ua!==undefined&&ua!==''){let ok=false;if(q.opts&&typeof q.a==='number')ok=(ua===q.a);else if(typeof q.a==='boolean')ok=(ua===q.a);if(ok&&wb[q.id])delete wb[q.id]}});
   saveWrongBank(wb);
   
-  // Update category stats
-  const cs = getCatStats();
-  Object.keys(catResults).forEach(cat => {
-    if (!cs[cat]) cs[cat] = {total:0, correct:0};
-    cs[cat].total += catResults[cat].total;
-    cs[cat].correct += catResults[cat].correct;
-  });
-  saveCatStats(cs);
+  // Update cat stats
+  const cs=getCatStats();Object.keys(catRes).forEach(c=>{if(!cs[c])cs[c]={total:0,correct:0};cs[c].total+=catRes[c].total;cs[c].correct+=catRes[c].correct});saveCatStats(cs);
   
   // Save history
-  const history = getHistory();
-  history.unshift({
-    date: new Date().toLocaleString('zh-CN'),
-    score: score,
-    total: allQuestions.length,
-    correct: correct,
-    wrong: wrong,
-    blank: blank,
-    duration: duration
-  });
-  if (history.length > 50) history.pop();
-  saveHistory(history);
+  const h=getHistory();h.unshift({date:new Date().toLocaleString('zh-CN'),score,total:all.length,correct,wrong,blank,duration});if(h.length>50)h.pop();saveHistory(h);
   
-  // Store wrong details for display
-  currentQuiz.wrongDetails = wrongDetails;
-  currentQuiz.score = score;
-  currentQuiz.correct = correct;
-  currentQuiz.wrong = wrong;
-  currentQuiz.blank = blank;
-  
-  showResult(score, correct, wrong, blank, allQuestions.length);
+  currentQuiz.wrongDetails=wrongDetails;currentQuiz.score=score;currentQuiz.correct=correct;currentQuiz.wrong=wrong;currentQuiz.blank=blank;
+  showResult(score,correct,wrong,blank,all.length);
 }
 
-function checkFillBlankAnswer(userAns, correctAnswers) {
-  const normalized = userAns.trim().toLowerCase();
-  return correctAnswers.some(ca => {
-    const nca = ca.trim().toLowerCase();
-    if (nca === normalized) return true;
-    // Check if user answer contains the correct answer
-    if (normalized.includes(nca) && nca.length >= 2) return true;
-    if (nca.includes(normalized) && normalized.length >= 2) return true;
-    return false;
-  });
-}
-
-// ===================== RESULTS =====================
-function showResult(score, correct, wrong, blank, total) {
+function showResult(score,correct,wrong,blank,total){
   showPage('result');
-  const circle = document.getElementById('scoreCircle');
-  circle.textContent = score;
-  if (score >= 60) {
-    circle.classList.add('pass');
-    circle.classList.remove('fail');
-    document.getElementById('resultTitle').textContent = '🎉 恭喜通过！';
-  } else {
-    circle.classList.add('fail');
-    circle.classList.remove('pass');
-    document.getElementById('resultTitle').textContent = '😔 未通过，继续努力';
-  }
+  const c=document.getElementById('scoreCircle');c.textContent=score;
+  if(score>=60){c.classList.add('pass');c.classList.remove('fail');document.getElementById('resultTitle').textContent='🎉 恭喜通过！'}
+  else{c.classList.add('fail');c.classList.remove('pass');document.getElementById('resultTitle').textContent='😔 未通过，继续努力'}
   
-  document.getElementById('scoreDetail').innerHTML = 
-    '填空 ' + currentQuiz.fb.filter(q=>{const a=currentQuiz.answers[q.id];return a!==undefined&&a!==''&&checkFillBlankAnswer(a,q.a);}).length + '/30 ｜ ' +
-    '判断 ' + currentQuiz.tf.filter(q=>{const a=currentQuiz.answers[q.id];return a===q.a;}).length + '/30 ｜ ' +
-    '选择 ' + currentQuiz.ch.filter(q=>{const a=currentQuiz.answers[q.id];return a===q.a;}).length + '/40';
-  
-  document.getElementById('rTotal').textContent = total;
-  document.getElementById('rCorrect').textContent = correct;
-  document.getElementById('rWrong').textContent = wrong;
-  document.getElementById('rBlank').textContent = blank;
-  
-  // Render wrong questions
-  renderResultWrong();
-  updateHomeDisplay();
+  let fbC=0,tfC=0,chC=0;
+  currentQuiz.fb.forEach(q=>{const a=currentQuiz.answers[q.id];if(a!==undefined&&a!==''&&a===q.a)fbC++});
+  currentQuiz.tf.forEach(q=>{const a=currentQuiz.answers[q.id];if(a!==undefined&&a!==''&&a===q.a)tfC++});
+  currentQuiz.ch.forEach(q=>{const a=currentQuiz.answers[q.id];if(a!==undefined&&a!==''&&a===q.a)chC++});
+  document.getElementById('scoreDetail').innerHTML='填空 '+fbC+'/'+currentQuiz.fb.length+' ｜ 判断 '+tfC+'/'+currentQuiz.tf.length+' ｜ 选择 '+chC+'/'+currentQuiz.ch.length;
+  document.getElementById('rTotal').textContent=total;
+  document.getElementById('rCorrect').textContent=correct;
+  document.getElementById('rWrong').textContent=wrong;
+  document.getElementById('rBlank').textContent=blank;
+  renderResultWrong();updateHomeDisplay();
 }
 
-function renderResultWrong() {
-  const list = document.getElementById('resultWrongList');
-  const wrongs = currentQuiz.wrongDetails || [];
-  document.getElementById('resultWrongCount').textContent = '本次共答错 ' + wrongs.length + ' 题';
-  
-  if (wrongs.length === 0) {
-    list.innerHTML = '<div class="empty"><div class="icon">🎉</div><p>太棒了！没有答错的题目！</p></div>';
-    return;
-  }
-  
-  let html = '';
-  const typeNames = {fillBlank:'填空题', trueFalse:'判断题', choice:'选择题'};
-  wrongs.forEach((d, i) => {
-    const q = d.q;
-    html += '<div class="wrong-q-item">';
-    html += '<div class="wq-type">' + typeNames[d.type] + ' ｜ ' + q.cat + '</div>';
-    html += '<div class="wq-text">' + (i+1) + '. ' + q.q.replace(/____/g, '_____') + '</div>';
-    html += '<div class="wq-answer wq-your">你的答案：' + escapeHtml(d.yourAns) + '</div>';
-    html += '<div class="wq-answer wq-correct">正确答案：' + escapeHtml(d.correctAns) + '</div>';
-    if (q.exp) html += '<div class="wq-explain">解析：' + escapeHtml(q.exp) + '</div>';
-    html += '</div>';
+function renderResultWrong(){
+  const list=document.getElementById('resultWrongList');const wrongs=currentQuiz.wrongDetails||[];
+  document.getElementById('resultWrongCount').textContent='本次共答错 '+wrongs.length+' 题';
+  if(wrongs.length===0){list.innerHTML='<div class="empty"><div class="icon">🎉</div><p>太棒了！没有答错的题目！</p></div>';return}
+  let html='';const tn={fillBlank:'填空题',trueFalse:'判断题',choice:'选择题'};
+  wrongs.forEach((d,i)=>{const q=d.q;
+    html+='<div class="wrong-q-item"><div class="wq-type">'+tn[d.type]+' ｜ '+q.cat+'</div>';
+    html+='<div class="wq-text">'+(i+1)+'. '+q.q.replace(/____/g,'_____')+'</div>';
+    html+='<div class="wq-answer wq-your">你的答案：'+escapeHtml(d.yourAns)+'</div>';
+    html+='<div class="wq-answer wq-correct">正确答案：'+escapeHtml(d.correctAns)+'</div>';
+    if(q.exp)html+='<div class="wq-explain">解析：'+escapeHtml(q.exp)+'</div>';
+    html+='</div>';
   });
-  list.innerHTML = html;
+  list.innerHTML=html;
 }
 
 // ===================== WRONG BANK =====================
-function renderWrongBank() {
-  const wb = getWrongBank();
-  const list = document.getElementById('wrongBankList');
-  const ids = Object.keys(wb);
-  
-  document.getElementById('wrongCountDisplay').textContent = ids.length + ' 道错题';
-  document.getElementById('wrongBankDesc').textContent = '错题库共有 ' + ids.length + ' 道错题，下次答题时这些题目出现概率更高';
-  
-  if (ids.length === 0) {
-    list.innerHTML = '<div class="empty"><div class="icon">📝</div><p>错题库为空，快去答题吧！</p></div>';
-    return;
-  }
-  
-  let filtered = ids;
-  if (wrongBankFilter !== 'all') {
-    filtered = ids.filter(id => wb[id].type === wrongBankFilter);
-  }
-  
-  if (filtered.length === 0) {
-    list.innerHTML = '<div class="empty"><div class="icon">📝</div><p>该类型暂无错题</p></div>';
-    return;
-  }
-  
-  // Sort by lastWrong desc
-  filtered.sort((a, b) => (wb[b].lastWrong || 0) - (wb[a].lastWrong || 0));
-  
-  const typeNames = {fillBlank:'填空题', trueFalse:'判断题', choice:'选择题'};
-  let html = '';
-  filtered.forEach((id, i) => {
-    const w = wb[id];
-    html += '<div class="wrong-q-item">';
-    html += '<div class="wq-type">' + typeNames[w.type] + ' ｜ ' + w.cat + ' ｜ 错误' + (w.count||1) + '次</div>';
-    html += '<div class="wq-text">' + (i+1) + '. ' + w.question.replace(/____/g, '_____') + '</div>';
-    html += '<div class="wq-answer wq-your">你的答案：' + escapeHtml(w.yourAnswer) + '</div>';
-    html += '<div class="wq-answer wq-correct">正确答案：' + escapeHtml(w.correctAnswer) + '</div>';
-    if (w.exp) html += '<div class="wq-explain">解析：' + escapeHtml(w.exp) + '</div>';
-    html += '</div>';
+function renderWrongBank(){
+  const wb=getWrongBank();const list=document.getElementById('wrongBankList');const ids=Object.keys(wb);
+  document.getElementById('wrongCountDisplay').textContent=ids.length+' 道错题';
+  document.getElementById('wrongBankDesc').textContent='错题库共有 '+ids.length+' 道错题，下次答题时这些题目出现概率更高';
+  if(ids.length===0){list.innerHTML='<div class="empty"><div class="icon">📝</div><p>错题库为空，快去答题吧！</p></div>';return}
+  let filtered=ids;if(wrongBankFilter!=='all')filtered=ids.filter(id=>wb[id].type===wrongBankFilter);
+  if(filtered.length===0){list.innerHTML='<div class="empty"><div class="icon">📝</div><p>该类型暂无错题</p></div>';return}
+  filtered.sort((a,b)=>(wb[b].lastWrong||0)-(wb[a].lastWrong||0));
+  const tn={fillBlank:'填空题',trueFalse:'判断题',choice:'选择题'};
+  let html='';
+  filtered.forEach((id,i)=>{const w=wb[id];
+    html+='<div class="wrong-q-item"><div class="wq-type">'+tn[w.type]+' ｜ '+w.cat+' ｜ 错误'+(w.count||1)+'次</div>';
+    html+='<div class="wq-text">'+(i+1)+'. '+w.question.replace(/____/g,'_____')+'</div>';
+    html+='<div class="wq-answer wq-your">你的答案：'+escapeHtml(w.yourAnswer)+'</div>';
+    html+='<div class="wq-answer wq-correct">正确答案：'+escapeHtml(w.correctAnswer)+'</div>';
+    if(w.exp)html+='<div class="wq-explain">解析：'+escapeHtml(w.exp)+'</div>';
+    html+='</div>';
   });
-  list.innerHTML = html;
+  list.innerHTML=html;
 }
-
-function filterWrongBank(type) {
-  wrongBankFilter = type;
-  renderWrongBank();
-}
-
-function clearWrongBank() {
-  if (confirm('确定要清空错题库吗？此操作不可撤销。')) {
-    saveWrongBank({});
-    renderWrongBank();
-    updateHomeDisplay();
-  }
-}
+function filterWrongBank(t){wrongBankFilter=t;renderWrongBank()}
+function clearWrongBank(){if(confirm('确定要清空错题库吗？')){saveWrongBank({});renderWrongBank();updateHomeDisplay()}}
 
 // ===================== WEAK POINTS =====================
-function renderWeakPoints() {
-  const cs = getCatStats();
-  const container = document.getElementById('weakPointsContainer');
-  
-  const cats = Object.keys(cs).filter(c => cs[c].total > 0);
-  
-  if (cats.length === 0) {
-    container.innerHTML = '<div class="empty"><div class="icon">📊</div><p>暂无答题数据，请先完成一次答题</p></div>';
-    return;
-  }
-  
-  // Sort by accuracy ascending (weakest first)
-  cats.sort((a, b) => {
-    const ra = cs[a].correct / cs[a].total;
-    const rb = cs[b].correct / cs[b].total;
-    return ra - rb;
+function renderWeakPoints(){
+  const cs=getCatStats();const container=document.getElementById('weakPointsContainer');
+  const cats=Object.keys(cs).filter(c=>cs[c].total>0);
+  if(cats.length===0){container.innerHTML='<div class="empty"><div class="icon">📊</div><p>暂无答题数据，请先完成一次答题</p></div>';return}
+  cats.sort((a,b)=>{const ra=cs[a].correct/cs[a].total,rb=cs[b].correct/cs[b].total;return ra-rb});
+  let html='<div class="weak-points">';
+  cats.forEach(cat=>{const s=cs[cat];const pct=s.total>0?Math.round((s.correct/s.total)*100):0;
+    let color,label;
+    if(pct<50){color='#e74c3c';label='严重薄弱'}
+    else if(pct<70){color='#e67e22';label='需加强'}
+    else if(pct<85){color='#f1c40f';label='一般'}
+    else{color='#27ae60';label='掌握良好'}
+    html+='<div class="weak-item"><div class="weak-cat-name">'+cat+'<br><span style="font-size:11px;color:'+color+'">'+label+'</span></div>';
+    html+='<div class="weak-bar"><div class="weak-bar-fill" style="width:'+pct+'%;background:'+color+'"></div><div class="weak-bar-text">'+s.correct+'/'+s.total+'</div></div>';
+    html+='<div class="weak-pct" style="color:'+color+'">'+pct+'%</div></div>';
   });
-  
-  let html = '<div class="weak-points">';
-  cats.forEach(cat => {
-    const s = cs[cat];
-    const pct = s.total > 0 ? Math.round((s.correct / s.total) * 100) : 0;
-    let color, label;
-    if (pct < 50) { color = '#e74c3c'; label = '严重薄弱'; }
-    else if (pct < 70) { color = '#e67e22'; label = '需加强'; }
-    else if (pct < 85) { color = '#f1c40f'; label = '一般'; }
-    else { color = '#27ae60'; label = '掌握良好'; }
-    
-    html += '<div class="weak-item">';
-    html += '<div class="weak-cat-name">' + cat + '<br><span style="font-size:11px;color:' + color + '">' + label + '</span></div>';
-    html += '<div class="weak-bar"><div class="weak-bar-fill" style="width:' + pct + '%;background:' + color + '"></div><div class="weak-bar-text">' + s.correct + '/' + s.total + '</div></div>';
-    html += '<div class="weak-pct" style="color:' + color + '">' + pct + '%</div>';
-    html += '</div>';
-  });
-  html += '</div>';
-  
-  // Summary
-  const totalCorrect = cats.reduce((sum, c) => sum + cs[c].correct, 0);
-  const totalTotal = cats.reduce((sum, c) => sum + cs[c].total, 0);
-  const overallPct = totalTotal > 0 ? Math.round((totalCorrect / totalTotal) * 100) : 0;
-  
-  html += '<div style="margin-top:20px;background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);text-align:center">';
-  html += '<div style="font-size:14px;color:var(--text-light);margin-bottom:8px">总体掌握程度</div>';
-  html += '<div style="font-size:36px;font-weight:700;color:' + (overallPct >= 85 ? 'var(--success)' : overallPct >= 70 ? 'var(--warning)' : 'var(--accent)') + '">' + overallPct + '%</div>';
-  html += '<div style="font-size:13px;color:var(--text-light);margin-top:4px">累计答对 ' + totalCorrect + ' / ' + totalTotal + ' 题</div>';
-  html += '</div>';
-  
-  // Recommendation
-  const weakest = cats[0];
-  const weakPct = cs[weakest].total > 0 ? Math.round((cs[weakest].correct / cs[weakest].total) * 100) : 0;
-  html += '<div style="margin-top:16px;background:#fff3e0;border-radius:8px;padding:16px;border-left:4px solid var(--warning)">';
-  html += '<div style="font-size:14px;font-weight:600;color:var(--warning)">💡 建议</div>';
-  html += '<div style="font-size:13px;color:var(--text-light);margin-top:4px">最薄弱的知识点是「' + weakest + '」（正确率 ' + weakPct + '%），建议重点复习该章节内容，并通过错题本加强练习。</div>';
-  html += '</div>';
-  
-  container.innerHTML = html;
+  html+='</div>';
+  const tc=cats.reduce((s,c)=>s+cs[c].correct,0),tt=cats.reduce((s,c)=>s+cs[c].total,0);
+  const op=tt>0?Math.round((tc/tt)*100):0;
+  html+='<div style="margin-top:20px;background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);text-align:center">';
+  html+='<div style="font-size:14px;color:var(--text-light);margin-bottom:8px">总体掌握程度</div>';
+  html+='<div style="font-size:36px;font-weight:700;color:'+(op>=85?'var(--success)':op>=70?'var(--warning)':'var(--accent)')+'">'+op+'%</div>';
+  html+='<div style="font-size:13px;color:var(--text-light);margin-top:4px">累计答对 '+tc+' / '+tt+' 题</div></div>';
+  const weakest=cats[0],wp=cs[weakest].total>0?Math.round((cs[weakest].correct/cs[weakest].total)*100):0;
+  html+='<div style="margin-top:16px;background:#fff3e0;border-radius:8px;padding:16px;border-left:4px solid var(--warning)">';
+  html+='<div style="font-size:14px;font-weight:600;color:var(--warning)">💡 建议</div>';
+  html+='<div style="font-size:13px;color:var(--text-light);margin-top:4px">最薄弱的知识点是「'+weakest+'」（正确率 '+wp+'%），建议重点复习该章节内容。</div></div>';
+  container.innerHTML=html;
 }
 
 // ===================== STATS =====================
-function renderStats() {
-  const history = getHistory();
-  const wb = getWrongBank();
-  
-  document.getElementById('sTotalExams').textContent = history.length;
-  document.getElementById('sTotalWrong').textContent = Object.keys(wb).length;
-  
-  if (history.length === 0) {
-    document.getElementById('sAvgScore').textContent = '--';
-    document.getElementById('sBestScore').textContent = '--';
-    document.getElementById('historyList').innerHTML = '<div class="empty"><div class="icon">📈</div><p>暂无答题记录</p></div>';
-    return;
+function renderStats(){
+  const h=getHistory(),wb=getWrongBank();
+  document.getElementById('sTotalExams').textContent=h.length;
+  document.getElementById('sTotalWrong').textContent=Object.keys(wb).length;
+  if(h.length===0){document.getElementById('sAvgScore').textContent='--';document.getElementById('sBestScore').textContent='--';document.getElementById('historyList').innerHTML='<div class="empty"><div class="icon">📈</div><p>暂无答题记录</p></div>';return}
+  const sc=h.map(x=>x.score);const avg=Math.round(sc.reduce((a,b)=>a+b,0)/sc.length);const best=Math.max(...sc);
+  document.getElementById('sAvgScore').textContent=avg;document.getElementById('sBestScore').textContent=best;
+  let html='';
+  h.forEach(x=>{const ip=x.score>=60;const m=Math.floor(x.duration/60),s=x.duration%60;
+    html+='<div class="history-item"><div><div class="h-date">'+x.date+'</div>';
+    html+='<div style="font-size:12px;color:var(--text-light)">对'+x.correct+'题 错'+x.wrong+'题 未答'+x.blank+'题 ｜ 用时'+m+'分'+s+'秒</div></div>';
+    html+='<div class="h-score '+(ip?'pass':'fail')+'">'+x.score+'分</div></div>';
+  });
+  document.getElementById('historyList').innerHTML=html;
+}
+
+// ===================== NAV =====================
+function showPage(page){
+  ['home','quiz','result','resultWrong','wrongbank','weak','stats'].forEach(p=>{const el=document.getElementById('page-'+p);if(el)el.classList.add('hidden')});
+  const t=document.getElementById('page-'+page);if(t)t.classList.remove('hidden');
+  if(page==='wrongbank')renderWrongBank();
+  if(page==='weak')renderWeakPoints();
+  if(page==='stats')renderStats();
+  if(page==='home')updateHomeDisplay();
+  window.scrollTo(0,0);
+}
+function updateHomeDisplay(){const wb=getWrongBank();document.getElementById('wrongCountDisplay').textContent=Object.keys(wb).length+' 道错题'}
+
+// Close dropdown when clicking outside
+document.addEventListener('click',function(e){
+  if(openDropdownId){const dd=document.getElementById('dd_'+openDropdownId);const blank=document.getElementById('blank_'+openDropdownId);
+    if(dd&&blank&&!dd.contains(e.target)&&!blank.contains(e.target)){dd.classList.remove('show');openDropdownId=null}
   }
-  
-  const scores = history.map(h => h.score);
-  const avg = Math.round(scores.reduce((a,b) => a+b, 0) / scores.length);
-  const best = Math.max(...scores);
-  
-  document.getElementById('sAvgScore').textContent = avg;
-  document.getElementById('sBestScore').textContent = best;
-  
-  let html = '';
-  history.forEach(h => {
-    const isPass = h.score >= 60;
-    const mins = Math.floor(h.duration / 60);
-    const secs = h.duration % 60;
-    html += '<div class="history-item">';
-    html += '<div><div class="h-date">' + h.date + '</div>';
-    html += '<div style="font-size:12px;color:var(--text-light)">对' + h.correct + '题 错' + h.wrong + '题 未答' + h.blank + '题 ｜ 用时' + mins + '分' + secs + '秒</div></div>';
-    html += '<div class="h-score ' + (isPass ? 'pass' : 'fail') + '">' + h.score + '分</div>';
-    html += '</div>';
-  });
-  document.getElementById('historyList').innerHTML = html;
-}
+});
 
-// ===================== NAVIGATION =====================
-function showPage(page) {
-  const pages = ['home','quiz','result','resultWrong','wrongbank','weak','stats'];
-  pages.forEach(p => {
-    const el = document.getElementById('page-' + p);
-    if (el) el.classList.add('hidden');
-  });
-  const target = document.getElementById('page-' + page);
-  if (target) target.classList.remove('hidden');
-  
-  if (page === 'wrongbank') renderWrongBank();
-  if (page === 'weak') renderWeakPoints();
-  if (page === 'stats') renderStats();
-  if (page === 'home') updateHomeDisplay();
-  
-  window.scrollTo(0, 0);
-}
-
-function updateHomeDisplay() {
-  const wb = getWrongBank();
-  document.getElementById('wrongCountDisplay').textContent = Object.keys(wb).length + ' 道错题';
-}
-
-// ===================== INIT =====================
 updateHomeDisplay();
 </script>
 </body>
