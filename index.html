@@ -40,9 +40,20 @@ body{font-family:'Microsoft YaHei','PingFang SC','Helvetica Neue',Arial,sans-ser
 .question-list{display:flex;flex-direction:column;gap:12px}
 .q-card{background:var(--card);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);border-left:4px solid var(--border);transition:border-color .2s}
 .q-card.answered{border-left-color:var(--success)}
+.q-card.correct{border-left-color:var(--success);background:#f6fff9}
+.q-card.wrong{border-left-color:var(--accent);background:#fffafa}
 .q-num{font-size:13px;font-weight:600;color:var(--primary);margin-bottom:6px}
 .q-category{display:inline-block;font-size:11px;background:#eef5fc;color:var(--primary);padding:2px 8px;border-radius:4px;margin-left:8px}
 .q-text{font-size:15px;margin-bottom:12px;line-height:1.7}
+/* Real-time feedback */
+.q-feedback{margin-top:12px;padding:10px 14px;border-radius:6px;font-size:13px;display:none}
+.q-feedback.show{display:block}
+.q-feedback.ok{background:#e8f8ef;border:1px solid var(--success);color:var(--success)}
+.q-feedback.err{background:#fdeaea;border:1px solid var(--accent);color:var(--accent)}
+.q-feedback .fb-label{font-weight:700;font-size:14px;margin-bottom:4px}
+.q-feedback .fb-correct-ans{margin-top:4px}
+.q-feedback .fb-correct-ans strong{color:var(--primary)}
+.q-feedback .fb-exp{margin-top:6px;color:var(--text-light);font-style:italic}
 /* Fill-blank clickable blank */
 .fb-blank{display:inline-block;min-width:140px;border-bottom:2px solid var(--primary);margin:0 4px;text-align:center;font-weight:600;color:var(--accent);cursor:pointer;padding:2px 8px;position:relative;transition:all .2s;border-radius:4px 4px 0 0}
 .fb-blank:hover{background:#f0f4ff}
@@ -502,15 +513,35 @@ function renderQuiz(){
   }
   qs.forEach(function(q,idx){
     var answered=currentQuiz.answers[q.id]!==undefined&&currentQuiz.answers[q.id]!=='';
-    html+='<div class="q-card'+(answered?' answered':'')+(isPractice?' answered':'')+'" id="card_'+q.id+'">';
+    var isCorrect=false;
+    if(answered){
+      if(q.opts&&typeof q.a==='number'){isCorrect=(currentQuiz.answers[q.id]===q.a)}
+      else if(typeof q.a==='boolean'){isCorrect=(currentQuiz.answers[q.id]===q.a)}
+    }
+    var cardClass='q-card';
+    if(isPractice)cardClass+=' answered';
+    else if(answered)cardClass+=' '+(isCorrect?'correct':'wrong')+' answered';
+    html+='<div class="'+cardClass+'" id="card_'+q.id+'">';
     html+='<div class="q-num">'+prefix+' 第'+(idx+1)+'题 <span class="q-category">'+q.cat+'</span></div>';
     html+='<div class="q-text">'+renderQText(q)+'</div>'+renderInput(q);
     if(isPractice&&q.exp){
       html+='<div style="margin-top:8px;padding:8px 12px;background:#f7f9fc;border-radius:6px;font-size:13px;color:var(--text-light)"><strong style="color:var(--primary)">解析：</strong>'+escapeHtml(q.exp)+'</div>';
     }
+    // Real-time feedback div (exam mode only)
+    if(!isPractice){
+      html+='<div class="q-feedback" id="fb_'+q.id+'"></div>';
+    }
     html+='</div>';
   });
-  container.innerHTML=html;updateProgress();
+  container.innerHTML=html;
+  // Restore feedback for answered questions
+  if(!isPractice){
+    qs.forEach(function(q){
+      var ans=currentQuiz.answers[q.id];
+      if(ans!==undefined&&ans!==''){showFeedback(q.id,q,ans===q.a)}
+    });
+  }
+  updateProgress();
 }
 
 function renderQText(q){
@@ -519,7 +550,11 @@ function renderQText(q){
     // Fill-blank: replace ____ with clickable blank + dropdown INSIDE the span
     var blankText='&nbsp;点击选择&nbsp;';
     var cur=currentQuiz?currentQuiz.answers[q.id]:undefined;
-    if(cur!==undefined&&cur!==null&&cur!==''){blankText=escapeHtml(q.opts[cur])}
+    var filledClass='';
+    if(cur!==undefined&&cur!==null&&cur!==''){
+      blankText=escapeHtml(q.opts[cur]);
+      filledClass=' '+(cur===q.a?'filled':'filled-wrong');
+    }
     if(isPractice){
       // Practice mode: show answer directly
       return q.q.replace(/____/g,'<span class="fb-blank filled">'+escapeHtml(q.opts[q.a])+'</span>');
@@ -527,7 +562,7 @@ function renderQText(q){
     var dd='<div class="fb-dropdown" id="dd_'+q.id+'">';
     q.opts.forEach(function(opt,i){var sel=(cur===i)?' selected':'';dd+='<div class="fb-option'+sel+'" onclick="event.stopPropagation();selectFB(\''+q.id+'\','+i+')">'+escapeHtml(opt)+'</div>'});
     dd+='</div>';
-    return q.q.replace(/____/g,'<span class="fb-blank" id="blank_'+q.id+'" onclick="toggleFBDropdown(\''+q.id+'\')">'+blankText+dd+'</span>');
+    return q.q.replace(/____/g,'<span class="fb-blank'+filledClass+'" id="blank_'+q.id+'" onclick="toggleFBDropdown(\''+q.id+'\')">'+blankText+dd+'</span>');
   }
   return q.q;
 }
@@ -547,7 +582,15 @@ function renderInput(q){
     }
     // Multiple choice
     var html2='<div class="mc-options">';var labels2=['A','B','C','D','E'];
-    q.opts.forEach(function(opt,i){var sel=cur===i?' selected':'';html2+='<div class="mc-option'+sel+'" onclick="selectChoice(\''+qid+'\','+i+')"><span class="opt-label">'+labels2[i]+'</span><span class="opt-text">'+escapeHtml(opt)+'</span></div>'});
+    q.opts.forEach(function(opt,i){
+      var sel=cur===i?' selected':'';
+      var style='';
+      if(cur!==undefined&&cur!==null&&cur!==''){
+        // If answered wrong, highlight correct option
+        if(i===q.a&&cur!==q.a){style=' style="border-color:var(--success);background:#e8f8ef"'}
+      }
+      html2+='<div class="mc-option'+sel+'"'+style+' onclick="selectChoice(\''+qid+'\','+i+')"><span class="opt-label">'+labels2[i]+'</span><span class="opt-text">'+escapeHtml(opt)+'</span></div>';
+    });
     html2+='</div>';return html2;
   }else if(typeof q.a==='boolean'){
     if(isPractice){
@@ -557,9 +600,17 @@ function renderInput(q){
       return html3;
     }
     var sT=cur===true?' selected true':'',sF=cur===false?' selected false':'';
+    var styleCorrect='';
+    if(cur!==undefined&&cur!==null&&cur!==''&&cur!==q.a){
+      styleCorrect=q.a?' style="border-color:var(--success);background:#e8f8ef"':' style="border-color:var(--success);background:#e8f8ef"';
+    }
     var html4='<div class="tf-buttons">';
-    html4+='<button class="tf-btn'+sT+'" onclick="selectTF(\''+qid+'\',true)">✓ 正确</button>';
-    html4+='<button class="tf-btn'+sF+'" onclick="selectTF(\''+qid+'\',false)">✗ 错误</button></div>';
+    var tBtn=cur===true?' selected true':'';
+    var fBtn=cur===false?' selected false':'';
+    var tStyle=(cur!==undefined&&cur!==''&&cur!==q.a&&q.a)?' style="border-color:var(--success);background:#e8f8ef"':'';
+    var fStyle=(cur!==undefined&&cur!==''&&cur!==q.a&&!q.a)?' style="border-color:var(--success);background:#e8f8ef"':'';
+    html4+='<button class="tf-btn'+tBtn+'"'+tStyle+' onclick="selectTF(\''+qid+'\',true)">✓ 正确</button>';
+    html4+='<button class="tf-btn'+fBtn+'"'+fStyle+' onclick="selectTF(\''+qid+'\',false)">✗ 错误</button></div>';
     return html4;
   }
   return '';
@@ -585,6 +636,7 @@ function selectFB(qid,val){
   var dd=document.getElementById('dd_'+qid);
   if(dd)dd.classList.remove('show');
   openDropdownId=null;
+  var isCorrect=(val===q.a);
   // Re-render the blank span with new text + dropdown inside
   if(blank){
     var html=escapeHtml(q.opts[val]);
@@ -592,26 +644,101 @@ function selectFB(qid,val){
     q.opts.forEach(function(opt,i){var sel=(i===val)?' selected':'';dd2+='<div class="fb-option'+sel+'" onclick="event.stopPropagation();selectFB(\''+qid+'\','+i+')">'+escapeHtml(opt)+'</div>'});
     dd2+='</div>';
     blank.innerHTML=html+dd2;
-    blank.classList.add('filled');
-    blank.classList.remove('filled-wrong');
+    blank.classList.add(isCorrect?'filled':'filled-wrong');
+    blank.classList.remove(isCorrect?'filled-wrong':'filled');
   }
   markAnswered(qid);updateProgress();
+  showFeedback(qid,q,isCorrect);
 }
 
 function selectChoice(qid,val){
   currentQuiz.answers[qid]=val;
   var evt=window.event||event;
-  document.querySelectorAll('.mc-option').forEach(function(el){if(el.getAttribute('onclick')&&el.getAttribute('onclick').indexOf(qid)>=0)el.classList.remove('selected')});
-  if(evt&&evt.currentTarget)evt.currentTarget.classList.add('selected');
+  var q=null;
+  for(var i=0;i<currentQuiz.ch.length;i++){if(currentQuiz.ch[i].id===qid){q=currentQuiz.ch[i];break}}
+  // Remove selected state from all options in this card
+  var card=document.getElementById('card_'+qid);
+  if(card){
+    var opts=card.querySelectorAll('.mc-option');
+    opts.forEach(function(el,i){
+      el.classList.remove('selected');
+      el.style.borderColor='';
+      el.style.background='';
+    });
+    // Highlight selected option
+    if(evt&&evt.currentTarget){evt.currentTarget.classList.add('selected')}
+    // If wrong, also highlight the correct answer
+    if(q){
+      var isCorrect=(val===q.a);
+      if(!isCorrect){
+        // Mark selected (wrong) option red, correct option green
+        opts.forEach(function(el,i){
+          if(i===q.a){el.style.borderColor='var(--success)';el.style.background='#e8f8ef'}
+        });
+      }
+    }
+  }else{
+    if(evt&&evt.currentTarget)evt.currentTarget.classList.add('selected');
+  }
   markAnswered(qid);updateProgress();
+  if(q)showFeedback(qid,q,(val===q.a));
 }
 
 function selectTF(qid,val){
   currentQuiz.answers[qid]=val;
   var evt=window.event||event;
-  document.querySelectorAll('.tf-btn').forEach(function(el){if(el.getAttribute('onclick')&&el.getAttribute('onclick').indexOf(qid)>=0){el.classList.remove('selected','true','false')}});
-  if(evt&&evt.currentTarget)evt.currentTarget.classList.add('selected',val?'true':'false');
+  var q=null;
+  for(var i=0;i<currentQuiz.tf.length;i++){if(currentQuiz.tf[i].id===qid){q=currentQuiz.tf[i];break}}
+  // Reset all TF buttons in this card
+  var card=document.getElementById('card_'+qid);
+  if(card){
+    var btns=card.querySelectorAll('.tf-btn');
+    btns.forEach(function(el){el.classList.remove('selected','true','false');el.style.borderColor='';el.style.background=''});
+    // Highlight selected
+    if(evt&&evt.currentTarget)evt.currentTarget.classList.add('selected',val?'true':'false');
+    // If wrong, highlight the correct one
+    if(q&&val!==q.a){
+      btns.forEach(function(el){
+        var isCorrectBtn=el.textContent.indexOf(q.a?'正确':'错误')>=0;
+        if(isCorrectBtn){el.style.borderColor='var(--success)';el.style.background='#e8f8ef'}
+      });
+    }
+  }else{
+    if(evt&&evt.currentTarget)evt.currentTarget.classList.add('selected',val?'true':'false');
+  }
   markAnswered(qid);updateProgress();
+  if(q)showFeedback(qid,q,(val===q.a));
+}
+
+// ===================== REAL-TIME FEEDBACK =====================
+function showFeedback(qid,q,isCorrect){
+  var card=document.getElementById('card_'+qid);
+  var fb=document.getElementById('fb_'+qid);
+  if(!card||!fb)return;
+  card.classList.remove('correct','wrong','answered');
+  card.classList.add(isCorrect?'correct':'wrong');
+  card.classList.add('answered');
+  var correctAns='';
+  if(q.opts&&typeof q.a==='number'&&q.q.includes('____')){
+    // Fill-blank
+    correctAns=q.opts[q.a];
+  }else if(q.opts&&typeof q.a==='number'){
+    // Choice
+    var labels=['A','B','C','D','E'];
+    correctAns=labels[q.a]+'. '+q.opts[q.a];
+  }else if(typeof q.a==='boolean'){
+    // True/False
+    correctAns=q.a?'正确':'错误';
+  }
+  if(isCorrect){
+    fb.className='q-feedback show ok';
+    fb.innerHTML='<div class="fb-label">✓ 回答正确</div>'+(q.exp?'<div class="fb-exp">'+escapeHtml(q.exp)+'</div>':'');
+  }else{
+    fb.className='q-feedback show err';
+    fb.innerHTML='<div class="fb-label">✗ 回答错误</div>'+
+      '<div class="fb-correct-ans">正确答案：<strong>'+escapeHtml(correctAns)+'</strong></div>'+
+      (q.exp?'<div class="fb-exp">'+escapeHtml(q.exp)+'</div>':'');
+  }
 }
 
 function markAnswered(qid){const card=document.getElementById('card_'+qid);if(card){const a=currentQuiz.answers[qid];if(a!==undefined&&a!=='')card.classList.add('answered');else card.classList.remove('answered')}}
