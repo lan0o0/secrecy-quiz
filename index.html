@@ -153,6 +153,7 @@ body{font-family:'Microsoft YaHei','PingFang SC','Helvetica Neue',Arial,sans-ser
 </div>
 <div class="btn-grid">
 <button class="home-btn primary" onclick="startQuiz()"><span class="icon">📝</span><span class="label">开始答题</span><span class="desc">随机抽题 · 100分 · 60分钟</span></button>
+<button class="home-btn" onclick="startPractice()"><span class="icon">📖</span><span class="label">练习模式</span><span class="desc">浏览全部题目与答案</span></button>
 <button class="home-btn" onclick="showPage('wrongbank')"><span class="icon">❌</span><span class="label">错题本</span><span class="desc" id="wrongCountDisplay">0 道错题</span></button>
 <button class="home-btn" onclick="showPage('weak')"><span class="icon">📊</span><span class="label">薄弱知识点</span><span class="desc">分析薄弱环节</span></button>
 <button class="home-btn" onclick="showPage('stats')"><span class="icon">📈</span><span class="label">答题记录</span><span class="desc">历史成绩统计</span></button>
@@ -452,8 +453,29 @@ function selectQuestions(pool,count){
 }
 
 function startQuiz(){
-  currentQuiz={fb:selectQuestions(FILL_BLANK,30),tf:selectQuestions(TRUE_FALSE,30),ch:selectQuestions(CHOICE,40),answers:{},startTime:Date.now(),duration:3600};
-  currentTab='fillBlank';showPage('quiz');renderQuiz();startTimer();
+  currentQuiz={fb:selectQuestions(FILL_BLANK,30),tf:selectQuestions(TRUE_FALSE,30),ch:selectQuestions(CHOICE,40),answers:{},startTime:Date.now(),duration:3600,mode:'exam'};
+  currentTab='fillBlank';showPage('quiz');
+  document.getElementById('timerDisplay').style.display='';
+  document.querySelector('.submit-bar').style.display='';
+  // Reset tab labels for exam mode
+  var tabs=document.querySelectorAll('.section-tab');
+  tabs[0].innerHTML='填空题<span class="count">30题 × 1分</span>';
+  tabs[1].innerHTML='判断题<span class="count">30题 × 1分</span>';
+  tabs[2].innerHTML='选择题<span class="count">40题 × 1分</span>';
+  renderQuiz();startTimer();
+}
+
+function startPractice(){
+  currentQuiz={fb:FILL_BLANK.slice(),tf:TRUE_FALSE.slice(),ch:CHOICE.slice(),answers:{},mode:'practice'};
+  currentTab='fillBlank';showPage('quiz');renderQuiz();
+  // Hide timer and submit bar in practice mode
+  document.getElementById('timerDisplay').style.display='none';
+  document.querySelector('.submit-bar').style.display='none';
+  // Update tab labels for practice mode (show all question counts)
+  var tabs=document.querySelectorAll('.section-tab');
+  tabs[0].innerHTML='填空题<span class="count">'+FILL_BLANK.length+'题</span>';
+  tabs[1].innerHTML='判断题<span class="count">'+TRUE_FALSE.length+'题</span>';
+  tabs[2].innerHTML='选择题<span class="count">'+CHOICE.length+'题</span>';
 }
 
 // ===================== TIMER =====================
@@ -466,45 +488,79 @@ function updateTimerDisplay(s){const m=Math.floor(s/60),ss=s%60;const el=documen
 
 // ===================== RENDER QUIZ =====================
 function renderQuiz(){
-  const container=document.getElementById('questionContainer');let html='',qs,prefix;
+  var container=document.getElementById('questionContainer');var html='',qs,prefix;
+  var isPractice=(currentQuiz&&currentQuiz.mode==='practice');
   if(currentTab==='fillBlank'){qs=currentQuiz.fb;prefix='填空题'}
   else if(currentTab==='trueFalse'){qs=currentQuiz.tf;prefix='判断题'}
   else{qs=currentQuiz.ch;prefix='选择题'}
-  qs.forEach((q,idx)=>{
-    const answered=currentQuiz.answers[q.id]!==undefined&&currentQuiz.answers[q.id]!=='';
-    html+='<div class="q-card'+(answered?' answered':'')+'" id="card_'+q.id+'">';
+  // Practice mode: add back button
+  if(isPractice){
+    html+='<div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">';
+    html+='<button class="btn btn-outline" onclick="showPage(\'home\')">← 返回首页</button>';
+    html+='<span style="font-size:14px;color:var(--text-light)">练习模式 · '+prefix+' 共 '+qs.length+' 题 · 正确答案已标注</span>';
+    html+='</div>';
+  }
+  qs.forEach(function(q,idx){
+    var answered=currentQuiz.answers[q.id]!==undefined&&currentQuiz.answers[q.id]!=='';
+    html+='<div class="q-card'+(answered?' answered':'')+(isPractice?' answered':'')+'" id="card_'+q.id+'">';
     html+='<div class="q-num">'+prefix+' 第'+(idx+1)+'题 <span class="q-category">'+q.cat+'</span></div>';
-    html+='<div class="q-text">'+renderQText(q)+'</div>'+renderInput(q)+'</div>';
+    html+='<div class="q-text">'+renderQText(q)+'</div>'+renderInput(q);
+    if(isPractice&&q.exp){
+      html+='<div style="margin-top:8px;padding:8px 12px;background:#f7f9fc;border-radius:6px;font-size:13px;color:var(--text-light)"><strong style="color:var(--primary)">解析：</strong>'+escapeHtml(q.exp)+'</div>';
+    }
+    html+='</div>';
   });
   container.innerHTML=html;updateProgress();
 }
 
 function renderQText(q){
+  var isPractice = (currentQuiz && currentQuiz.mode==='practice');
   if(q.opts&&q.a!==undefined&&typeof q.a==='number'&&!q.opts.some(o=>typeof o==='boolean')){
-    // Fill-blank with opts: replace ____ with clickable blank
-    return q.q.replace(/____/g,'<span class="fb-blank" id="blank_'+q.id+'" onclick="toggleFBDropdown(\''+q.id+'\')">&nbsp;点击选择&nbsp;</span>');
+    // Fill-blank: replace ____ with clickable blank + dropdown INSIDE the span
+    var blankText='&nbsp;点击选择&nbsp;';
+    var cur=currentQuiz?currentQuiz.answers[q.id]:undefined;
+    if(cur!==undefined&&cur!==null&&cur!==''){blankText=escapeHtml(q.opts[cur])}
+    if(isPractice){
+      // Practice mode: show answer directly
+      return q.q.replace(/____/g,'<span class="fb-blank filled">'+escapeHtml(q.opts[q.a])+'</span>');
+    }
+    var dd='<div class="fb-dropdown" id="dd_'+q.id+'">';
+    q.opts.forEach(function(opt,i){var sel=(cur===i)?' selected':'';dd+='<div class="fb-option'+sel+'" onclick="event.stopPropagation();selectFB(\''+q.id+'\','+i+')">'+escapeHtml(opt)+'</div>'});
+    dd+='</div>';
+    return q.q.replace(/____/g,'<span class="fb-blank" id="blank_'+q.id+'" onclick="toggleFBDropdown(\''+q.id+'\')">'+blankText+dd+'</span>');
   }
   return q.q;
 }
 
 function renderInput(q){
-  const qid=q.id,cur=currentQuiz.answers[qid];
+  var qid=q.id,cur=currentQuiz?currentQuiz.answers[qid]:undefined;
+  var isPractice=(currentQuiz&&currentQuiz.mode==='practice');
   if(q.opts&&q.a!==undefined&&typeof q.a==='number'){
-    // Check if it's fill-blank (has ____ in question) or choice
-    if(q.q.includes('____')){
-      // Fill-blank: render dropdown below the blank
-      let html='<div class="fb-dropdown" id="dd_'+qid+'">';
-      q.opts.forEach((opt,i)=>{const sel=cur===i?' selected':'';html+='<div class="fb-option'+sel+'" onclick="selectFB(\''+qid+'\','+i+')">'+escapeHtml(opt)+'</div>'});
+    // Fill-blank: dropdown already rendered inside blank span, no extra input needed
+    if(q.q.includes('____')){return ''}
+    if(isPractice){
+      // Practice: show correct answer highlighted
+      var html='<div class="mc-options">';
+      var labels=['A','B','C','D','E'];
+      q.opts.forEach(function(opt,i){var cls=i===q.a?' selected':'';html+='<div class="mc-option'+cls+'"><span class="opt-label">'+labels[i]+'</span><span class="opt-text">'+escapeHtml(opt)+'</span></div>'});
       html+='</div>';return html;
     }
     // Multiple choice
-    let html='<div class="mc-options">';const labels=['A','B','C','D','E'];
-    q.opts.forEach((opt,i)=>{const sel=cur===i?' selected':'';html+='<div class="mc-option'+sel+'" onclick="selectChoice(\''+qid+'\','+i+')"><span class="opt-label">'+labels[i]+'</span><span class="opt-text">'+escapeHtml(opt)+'</span></div>'});
-    html+='</div>';return html;
+    var html2='<div class="mc-options">';var labels2=['A','B','C','D','E'];
+    q.opts.forEach(function(opt,i){var sel=cur===i?' selected':'';html2+='<div class="mc-option'+sel+'" onclick="selectChoice(\''+qid+'\','+i+')"><span class="opt-label">'+labels2[i]+'</span><span class="opt-text">'+escapeHtml(opt)+'</span></div>'});
+    html2+='</div>';return html2;
   }else if(typeof q.a==='boolean'){
-    let html='<div class="tf-buttons">';const sT=cur===true?' selected true':'',sF=cur===false?' selected false':'';
-    html+='<button class="tf-btn'+sT+'" onclick="selectTF(\''+qid+'\',true)">✓ 正确</button>';
-    html+='<button class="tf-btn'+sF+'" onclick="selectTF(\''+qid+'\',false)">✗ 错误</button></div>';return html;
+    if(isPractice){
+      var html3='<div class="tf-buttons">';
+      html3+='<button class="tf-btn'+(q.a?' selected true':'')+'" style="opacity:.6">✓ 正确</button>';
+      html3+='<button class="tf-btn'+(!q.a?' selected false':'')+'" style="opacity:.6">✗ 错误</button></div>';
+      return html3;
+    }
+    var sT=cur===true?' selected true':'',sF=cur===false?' selected false':'';
+    var html4='<div class="tf-buttons">';
+    html4+='<button class="tf-btn'+sT+'" onclick="selectTF(\''+qid+'\',true)">✓ 正确</button>';
+    html4+='<button class="tf-btn'+sF+'" onclick="selectTF(\''+qid+'\',false)">✗ 错误</button></div>';
+    return html4;
   }
   return '';
 }
@@ -522,28 +578,39 @@ function toggleFBDropdown(qid){
 
 function selectFB(qid,val){
   currentQuiz.answers[qid]=val;
-  const q=[...currentQuiz.fb].find(x=>x.id===qid);if(!q)return;
-  const blank=document.getElementById('blank_'+qid);
-  const dd=document.getElementById('dd_'+qid);
-  if(blank){blank.textContent=q.opts[val];blank.classList.add('filled');blank.classList.remove('filled-wrong')}
+  var q=null;
+  for(var i=0;i<currentQuiz.fb.length;i++){if(currentQuiz.fb[i].id===qid){q=currentQuiz.fb[i];break}}
+  if(!q)return;
+  var blank=document.getElementById('blank_'+qid);
+  var dd=document.getElementById('dd_'+qid);
   if(dd)dd.classList.remove('show');
   openDropdownId=null;
-  // Update selected state
-  dd.querySelectorAll('.fb-option').forEach((el,i)=>{el.classList.toggle('selected',i===val)});
+  // Re-render the blank span with new text + dropdown inside
+  if(blank){
+    var html=escapeHtml(q.opts[val]);
+    var dd2='<div class="fb-dropdown" id="dd_'+qid+'">';
+    q.opts.forEach(function(opt,i){var sel=(i===val)?' selected':'';dd2+='<div class="fb-option'+sel+'" onclick="event.stopPropagation();selectFB(\''+qid+'\','+i+')">'+escapeHtml(opt)+'</div>'});
+    dd2+='</div>';
+    blank.innerHTML=html+dd2;
+    blank.classList.add('filled');
+    blank.classList.remove('filled-wrong');
+  }
   markAnswered(qid);updateProgress();
 }
 
 function selectChoice(qid,val){
   currentQuiz.answers[qid]=val;
-  document.querySelectorAll('.mc-option').forEach(el=>{if(el.getAttribute('onclick')&&el.getAttribute('onclick').includes(qid))el.classList.remove('selected')});
-  event.currentTarget.classList.add('selected');
+  var evt=window.event||event;
+  document.querySelectorAll('.mc-option').forEach(function(el){if(el.getAttribute('onclick')&&el.getAttribute('onclick').indexOf(qid)>=0)el.classList.remove('selected')});
+  if(evt&&evt.currentTarget)evt.currentTarget.classList.add('selected');
   markAnswered(qid);updateProgress();
 }
 
 function selectTF(qid,val){
   currentQuiz.answers[qid]=val;
-  document.querySelectorAll('.tf-btn').forEach(el=>{if(el.getAttribute('onclick')&&el.getAttribute('onclick').includes(qid)){el.classList.remove('selected','true','false')}});
-  event.currentTarget.classList.add('selected',val?'true':'false');
+  var evt=window.event||event;
+  document.querySelectorAll('.tf-btn').forEach(function(el){if(el.getAttribute('onclick')&&el.getAttribute('onclick').indexOf(qid)>=0){el.classList.remove('selected','true','false')}});
+  if(evt&&evt.currentTarget)evt.currentTarget.classList.add('selected',val?'true':'false');
   markAnswered(qid);updateProgress();
 }
 
@@ -560,17 +627,27 @@ function switchTab(tab){
 }
 
 function updateProgress(){
-  let fb=0,tf=0,mc=0;
-  currentQuiz.fb.forEach(q=>{if(currentQuiz.answers[q.id]!==undefined&&currentQuiz.answers[q.id]!=='')fb++});
-  currentQuiz.tf.forEach(q=>{if(currentQuiz.answers[q.id]!==undefined&&currentQuiz.answers[q.id]!=='')tf++});
-  currentQuiz.ch.forEach(q=>{if(currentQuiz.answers[q.id]!==undefined&&currentQuiz.answers[q.id]!=='')mc++});
-  const total=fb+tf+mc;
-  document.getElementById('answeredCount').textContent=total;
-  document.getElementById('totalCount').textContent=currentQuiz.fb.length+currentQuiz.tf.length+currentQuiz.ch.length;
-  document.getElementById('fbAnswered').textContent=fb;
-  document.getElementById('tfAnswered').textContent=tf;
-  document.getElementById('mcAnswered').textContent=mc;
-  document.getElementById('submitAnswered').textContent=total;
+  var isPractice=(currentQuiz&&currentQuiz.mode==='practice');
+  var fb=0,tf=0,mc=0;
+  currentQuiz.fb.forEach(function(q){if(currentQuiz.answers[q.id]!==undefined&&currentQuiz.answers[q.id]!=='')fb++});
+  currentQuiz.tf.forEach(function(q){if(currentQuiz.answers[q.id]!==undefined&&currentQuiz.answers[q.id]!=='')tf++});
+  currentQuiz.ch.forEach(function(q){if(currentQuiz.answers[q.id]!==undefined&&currentQuiz.answers[q.id]!=='')mc++});
+  var total=fb+tf+mc;
+  if(isPractice){
+    document.getElementById('answeredCount').textContent=currentQuiz.fb.length+currentQuiz.tf.length+currentQuiz.ch.length;
+    document.getElementById('totalCount').textContent=currentQuiz.fb.length+currentQuiz.tf.length+currentQuiz.ch.length;
+    document.getElementById('fbAnswered').textContent=currentQuiz.fb.length;
+    document.getElementById('tfAnswered').textContent=currentQuiz.tf.length;
+    document.getElementById('mcAnswered').textContent=currentQuiz.ch.length;
+    document.getElementById('submitAnswered').textContent=total;
+  }else{
+    document.getElementById('answeredCount').textContent=total;
+    document.getElementById('totalCount').textContent=currentQuiz.fb.length+currentQuiz.tf.length+currentQuiz.ch.length;
+    document.getElementById('fbAnswered').textContent=fb;
+    document.getElementById('tfAnswered').textContent=tf;
+    document.getElementById('mcAnswered').textContent=mc;
+    document.getElementById('submitAnswered').textContent=total;
+  }
 }
 
 // ===================== SUBMIT & SCORE =====================
